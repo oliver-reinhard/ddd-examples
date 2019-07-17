@@ -1,0 +1,35 @@
+domain dm.Reservations
+
+human actor Party 
+
+event Party_Arrived {
+	context 
+		p : Party
+		res : Reservations
+		/* Workaround: */
+		t : Table
+		
+	triggered by 
+		Party
+		
+	notifications
+		Please_Have_A_Seat 		: Message sent to Party
+		Please_Wait_at_the_Bar 	: Message sent to Party
+		
+	before conditions 
+		Party_Not_At_Table : «[NOT res.tables.exists(t.party = p)]»
+		Party_Not_Waiting  : «[NOT res.waiting.exists(p)]»
+		
+	after conditions 
+		Party_At_Table : «[
+			res.tables.exists(
+				t.seats ≥ p.size 
+				AND t.party = p 
+				AND t.state = TableState.USED
+			)
+			AND Please_Have_A_Seat.invoked(p)
+		]»
+		Party_Waiting  : «[res.waiting.exists(p) AND Please_Wait_at_the_Bar.invoked(p)]»
+		Party_Left     : «Noop»
+}
+

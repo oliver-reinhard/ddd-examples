@@ -1,0 +1,27 @@
+domain dm.Reservations 
+
+primitive Size redefines Natural {}
+primitive Message redefines Text { }
+
+aggregate {
+	
+	enumeration TableState { FREE, USED }
+	
+	root entity Reservations {
+		composite tables : Table (0..*)
+		waiting : Party (0..*)
+	}
+	
+	entity Table {
+		seats : Size
+		state : TableState
+		party : Party (0..1)
+	}
+	
+	detail Party {
+		name : Name
+		size : Size
+	}
+	
+} 
+			

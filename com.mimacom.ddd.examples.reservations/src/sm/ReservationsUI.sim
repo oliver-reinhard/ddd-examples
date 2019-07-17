@@ -1,0 +1,14 @@
+import sm.ReservationsBase
+
+interface information model sm.ReservationsUI 
+
+//grab aggregate dm.Reservations.Reservations { }
+
+grab detail dm.Reservations.Party as SParty {
+	id : ID
+}
+ 
+morph entity dm.Reservations.Table to detail STable { 
+	id : ID
+} 
+

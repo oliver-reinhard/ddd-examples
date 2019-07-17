@@ -1,0 +1,28 @@
+domain dm.Reservations
+
+human actor Waitor 
+
+event Table_Cleaned {
+	context 
+		t : Table
+		res   : Reservations
+		/* Workaround: */
+		p : Party
+		
+	triggered by 
+		Waitor
+		
+	notifications
+		Please_Have_A_Seat : Message sent to Party
+		
+	after conditions 
+		Party_Waiting : «[
+			res.waiting.exists(t.seats ≥ p.size) 
+			=> t.party = p
+				AND t.state = TableState.USED 
+				AND NOT res.waiting.exists(p)
+				AND Please_Have_A_Seat.invoked(p)
+		]»
+		TableFree    : «Noop»
+}
+

@@ -1,0 +1,15 @@
+domain dm.Reservations 
+
+state model X for Table 
+states
+	Available when party = UNDEFINED 
+	Occupied when party != UNDEFINED
+	Cleaning 
+events
+	assign
+	vacate
+	cleaned
+transitions
+	Available to Occupied as assign
+	Occupied to Cleaning as vacate
+	Cleaning to Available as cleaned

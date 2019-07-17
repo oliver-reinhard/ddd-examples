@@ -8,7 +8,7 @@ grab detail dm.Reservations.Party as SParty {
 	id : ID
 }
  
-morph entity dm.Reservations.Table to detail STable { 
+morph entity dm.Reservations.Table to detail STable {
 	id : ID
 } 
 

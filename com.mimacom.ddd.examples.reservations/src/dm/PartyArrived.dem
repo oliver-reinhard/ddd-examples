@@ -1,35 +1,36 @@
 domain dm.Reservations
 
-human actor Party 
+human actor A_Party
 
-event Party_Arrived {
+event Party_Arrived 
+«A group of people (a.k.a. [Table.all.select(x|p=3)]) have entered the restaurant and request a table for a number of persons.»
+{
 	context 
 		p : Party
-		res : Reservations
-		/* Workaround: */
-		t : Table
 		
 	triggered by 
-		Party
+		A_Party
 		
 	notifications
-		Please_Have_A_Seat 		: Message sent to Party
-		Please_Wait_at_the_Bar 	: Message sent to Party
+		Please_Have_A_Seat 		: Message to A_Party
+		Please_Wait_at_the_Bar 	: Message to A_Party 
 		
 	before conditions 
-		Party_Not_At_Table : «[NOT res.tables.exists(t.party = p)]»
-		Party_Not_Waiting  : «[NOT res.waiting.exists(p)]»
+		Party_Not_At_Table :	«The [Party] has not yet been assigned to a [Table]
+								 [NOT Table.all.exists(t | t.party = p)]»
+		Party_Not_Waiting  : 	«The [Party] is not currently waiting (e.g. at the bar).
+								 [NOT p.waiting]»
 		
 	after conditions 
-		Party_At_Table : «[
-			res.tables.exists(
-				t.seats ≥ p.size 
-				AND t.party = p 
-				AND t.state = TableState.USED
+		Party_At_Table : «The [Party] has been assigned to a [Table] of suitable size and the [Table] is marked as [TableState.USED]
+			[Please_Have_A_Seat.delivered
+			AND Table.all.exists(t|
+				t.seats ≥ p.size
+				AND t.party = p
+				AND t.state = TableState.USED 
 			)
-			AND Please_Have_A_Seat.invoked(p)
 		]»
-		Party_Waiting  : «[res.waiting.exists(p) AND Please_Wait_at_the_Bar.invoked(p)]»
-		Party_Left     : «Noop»
+		Party_Waiting  : Please_Wait_at_the_Bar.delivered AND p.waiting AND p.arrived = now()
+		Party_Left     : true
 }
 

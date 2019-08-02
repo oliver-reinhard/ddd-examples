@@ -5,24 +5,20 @@ human actor Waitor
 event Table_Cleaned {
 	context 
 		t : Table
-		res   : Reservations
-		/* Workaround: */
-		p : Party
 		
 	triggered by 
 		Waitor
 		
 	notifications
-		Please_Have_A_Seat : Message sent to Party
+		Please_Have_A_Seat : Message to A_Party
 		
 	after conditions 
-		Party_Waiting : «[
-			res.waiting.exists(t.seats ≥ p.size) 
-			=> t.party = p
+		Party_Waiting :
+			Party.all.exists(p | p.waiting AND p.size ≤ t.seats) 
+			=> t.party = Party.all.one(p1 | p1.waiting AND p1.size ≤ t.seats AND p1.arrived = Party.all.select(waiting).min(arrived))
 				AND t.state = TableState.USED 
-				AND NOT res.waiting.exists(p)
-				AND Please_Have_A_Seat.invoked(p)
-		]»
-		TableFree    : «Noop»
+				AND NOT t.party.waiting
+				AND Please_Have_A_Seat.delivered
+		TableFree    : t.state = TableState.FREE
 }
 

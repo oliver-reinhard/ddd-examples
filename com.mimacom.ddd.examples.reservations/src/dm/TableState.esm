@@ -1,15 +1,10 @@
 domain dm.Reservations 
 
-state model X for Table 
-states
-	Available when party = UNDEFINED 
-	Occupied when party != UNDEFINED
-	Cleaning 
-events
-	assign
-	vacate
-	cleaned
-transitions
-	Available to Occupied as assign
-	Occupied to Cleaning as vacate
-	Cleaning to Available as cleaned
+state model TableStateModel for dm.Reservations.Table {
+	
+	initial state FREE
+	final state USED
+	
+	transition from FREE to USED as ALLOCATED
+	transition from USED to FREE as CLEANED
+}

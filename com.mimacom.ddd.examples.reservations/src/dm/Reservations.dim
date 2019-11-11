@@ -1,24 +1,34 @@
-domain dm.Reservations 
+domain dm.Reservations
 
-primitive Size redefines Natural
+primitive Size redefines Natural0
+
 primitive Message redefines Text
 
-aggregate {
-	
-	enumeration TableState { FREE, USED }
-	
-	root entity Table {
-		seats : Size
-		state : TableState
-		party : Party (0..1)
+component Reservations {
+
+query has_Free_Table(minSeats : Size) : Boolean 
+returns Table.all.exists(t | t.seats ≥ minSeats AND t.state = Table.FREE) 
+
+query estimated_Wait_Time(seats : Size) : Duration
+
+query is_Party_Waiting(available_Seats : Size) : Boolean 
+returns Party.all.exists(p | p.state = Party.WAITING AND p.size ≤ available_Seats)
+
+main physical object Table {
+		states { FREE, USED }
+	events { ALLOCATED, CLEANED}
+	seats : Size
+		party references Party (0..1)
 	}
-	
-	detail Party {
-		name : Name
+
+	virtual concept Party {
+		states { ARRIVED, WAITING, SEATED, LEFT }
+events { WAIT, SIT, LEAVE }
+name : Name
 		size : Size
-		arrived : Timepoint
-		waiting : Boolean
+		arrival_Time : Timepoint
+		max_Wait_Time : Duration
 	}
-	
+
 } 
 			

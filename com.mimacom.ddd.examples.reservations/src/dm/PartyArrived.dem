@@ -1,36 +1,60 @@
+import dm.Reservations.Reservations
+import dm.Reservations.Reservations.Party
+import dm.Reservations.Reservations.PartyState
+import dm.Reservations.Reservations.TableState
+
 domain dm.Reservations
 
-human actor A_Party
+human actor as Leader_of_Party
 
 event Party_Arrived 
-«A group of people (a.k.a. [Table.all.select(x|p=3)]) have entered the restaurant and request a table for a number of persons.»
+«A group of people (a.k.a. [Party]) have entered the restaurant and request a [Table] for a [[Party#size|number]] of persons.»
 {
-	context 
+
+	context
 		p : Party
-		
-	triggered by 
-		A_Party
-		
+
+	triggered by
+		Leader_of_Party
+
 	notifications
-		Please_Have_A_Seat 		: Message to A_Party
-		Please_Wait_at_the_Bar 	: Message to A_Party 
-		
-	before conditions 
-		Party_Not_At_Table :	«The [Party] has not yet been assigned to a [Table]
-								 [NOT Table.all.exists(t | t.party = p)]»
-		Party_Not_Waiting  : 	«The [Party] is not currently waiting (e.g. at the bar).
-								 [NOT p.waiting]»
-		
-	after conditions 
-		Party_At_Table : «The [Party] has been assigned to a [Table] of suitable size and the [Table] is marked as [TableState.USED]
-			[Please_Have_A_Seat.delivered
-			AND Table.all.exists(t|
-				t.seats ≥ p.size
-				AND t.party = p
-				AND t.state = TableState.USED 
-			)
-		]»
-		Party_Waiting  : Please_Wait_at_the_Bar.delivered AND p.waiting AND p.arrived = now()
-		Party_Left     : true
+		Please_Have_A_Seat : Message to Leader_of_Party
+		Please_Wait_at_the_Bar : Message to Leader_of_Party
+
+	preconditions
+		Party_Just_Arrived:
+			p.state != Party.ARRIVED AND p.arrival_Time = now()
+
+		Party_Not_At_Table:
+			NOT Table.all.exists(t | t.party = p)
+
+	postconditions
+		case Party_At_Table
+		when Reservations.has_Free_Table(p.size):
+
+			Party_Seated:
+				p.state = Party.SEATED
+
+			Party_Assigned_To_Table:
+				Table.all.exists(t | t.seats ≥ p.size AND t.party = p AND t.state = Table.USED)
+
+			Message_Delivered:
+				Please_Have_A_Seat.delivered
+
+		case Party_Waiting
+		when p.max_Wait_Time ≤ Reservations.estimated_Wait_Time(p.size) AND NOT Reservations.has_Free_Table(p.size):
+
+			Party_Waiting:
+				p.state = Party.WAITING AND p.arrival_Time = now()
+
+			Message_Delivered:
+				Please_Wait_at_the_Bar.delivered
+
+		case Party_Left
+		when p.max_Wait_Time > Reservations.estimated_Wait_Time(p.size):
+
+			Party_Left:
+				p.state = Party.LEFT
+
 }
 

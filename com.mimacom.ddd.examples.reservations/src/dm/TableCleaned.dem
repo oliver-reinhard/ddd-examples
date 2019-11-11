@@ -1,24 +1,37 @@
+import dm.Reservations.Reservations.*
 domain dm.Reservations
 
-human actor Waitor 
+human actor as Waiter 
 
 event Table_Cleaned {
-	context 
-		t : Table
+	
+	context  
+		cleaned : Table
 		
 	triggered by 
-		Waitor
+		Waiter
 		
 	notifications
-		Please_Have_A_Seat : Message to A_Party
+		Please_Have_A_Seat : Message to Leader_of_Party
 		
-	after conditions 
-		Party_Waiting :
-			Party.all.exists(p | p.waiting AND p.size ≤ t.seats) 
-			=> t.party = Party.all.one(p1 | p1.waiting AND p1.size ≤ t.seats AND p1.arrived = Party.all.select(waiting).min(arrived))
-				AND t.state = TableState.USED 
-				AND NOT t.party.waiting
-				AND Please_Have_A_Seat.delivered
-		TableFree    : t.state = TableState.FREE
+	postconditions
+		case Party_Waiting 
+		when Reservations.is_Party_Waiting(cleaned.seats) :
+			
+			Party_At_Table: cleaned.party = Party.all.one(p1 | 
+						p1.state = Party.WAITING
+					AND p1.size ≤ cleaned.seats 
+					AND p1.arrival_Time = Party.all.select(p | p.state = Party.WAITING).min(arrival_Time)
+				)
+				AND cleaned.party.state = Party.SEATED
+			
+			Table_Used: cleaned.state = Table.USED
+			
+			Message_Delivered: Please_Have_A_Seat.delivered
+		
+		case No_Party_Waiting
+		when NOT Reservations.is_Party_Waiting(cleaned.seats):
+		
+			TableFree: cleaned.state = Table.FREE
 }
 

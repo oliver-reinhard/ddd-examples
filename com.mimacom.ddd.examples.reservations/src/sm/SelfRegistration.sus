@@ -8,7 +8,7 @@ section Goal
 «As a [Party], I want to register at the iPad provided for a free [Table] for [Party.size] persons »
 
 section Prerequisites
-«[Party.size > 0]»
+«[Party#size > 0]»
 
 section Analysis
 «Use case has to be based on the [UIService].»

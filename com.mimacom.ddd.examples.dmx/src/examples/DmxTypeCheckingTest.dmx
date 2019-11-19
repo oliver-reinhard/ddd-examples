@@ -1,0 +1,103 @@
+import Dmx.TestTypes.*
+
+namespace Dmx.Test
+ 
+test T21 context a : Natural { a }
+test T21 context a : Natural := 1 { a = 1 }
+//test T21 context a : Natural := "a" { a = 1 }	 // ERROR
+test T21 context a : Natural, b : Natural { a = b }
+test T21 context a : Natural := 1, b : Natural := 2 { a = b }
+//test T21 context a : Natural, b : Text { a = b } // ERROR: cannot compare number and text
+test T02 context a : A := detail A { a2 = 1 }  { a.a2 = 1 }
+//test T02 context a : A := detail A { a2 = "a" }  { a.a2 = 1 } // ERROR
+test T02 context a : A+ := { detail A { a2 = 1 }}  { true }
+test T05 context a : A := detail A { a2 = 3} { a.a2 = 3 }
+test T06 context a : A := detail A { a4 = {} } { a.a4 = {} }
+test T07 context a : A := detail A { a4 = {1} } { a.a4 = {1} }
+test T08 context a : A := detail A { a4 = {1, 2, 3} } { a.a4 = {1, 2, 3} }
+test T09 context a : A := detail A { a4 = {1, 2, 3} } { a.a4 <> {1, 2} }
+test T21 context a : A { a.a3 = E1.L2 }  
+test T21 context a : A { a.q1(2) = 3 }
+//test T21 context a : A { a.a3 < E1.L2 }  // ERROR: cannot compare enumerations with relational operators
+//test T21 context a : A { a.a2 < a.a4 }   // ERROR: cannot compare scalar with list
+//test T21 context a : A { a.all } 		// ERROR: 'all not supported here(Validation error)
+//test T22 context a : A { a1 } 			// ERROR: features are not in scope
+test T23 context a : A { a.a1 }
+test T24 context a : A { a.a2 }
+test T25 context a : A { a.a3 } 
+test T26 context a : A { a.d1.d1 } 
+//test T26 context a : A { a.d2.d1 } 	 		// ERROR: navigation of collection (Validation error)
+test T27 context a : A { a.q0 } 
+test T28 context a : A { a.q0() } 
+//test T28 context a : A { a.q0(1) } 				// ERROR: too many parameter values
+//test T29 context a : A { a.q1() }  				// ERROR: missing parameter value
+test T29 context a : A { a.q1(1) } 
+//test T29 context a : A { a.q1(1,2) } 			// ERROR: too many parameter values
+//test T30 context a : A { a.q2(1) }  			// ERROR: missing parameter value
+test T31 context a : A { a.q2(1,2) } 
+//test T32 context a : A { a.q2(1,2,3) }  		// ERROR: too many parameter values
+test T33 context a : A  { a.a1.cos() }  		
+//test T34 context a : A  { a.a1.cos(1) }			// ERROR: too many parameter values 
+//test T35 context a : A  { a.a1.power() }  		// ERROR: missing parameter values
+test T36 context a : A  { a.a1.power(1) }   
+//test T37 context a : A  { a.a1.power(1,2) }  	// ERROR: too many parameter values 
+test T38 context a : A { a.q3.d1 } 
+test T39 context a : A { a.q3().d1 }
+//// Inheritance:
+test T41 context b : B { b.b1 }
+test T42 context b : B { b.a1 }
+test T43 context b : B { b.q0 }
+test T44 context b : B { b.q0() }
+//// Assignment:
+//test T51 context a : Natural { a := 1 }     // ERROR: can only assign to attributes
+test T51 context a : A { a.a1 := 1 }  
+//test T51 context a : A { a.a1 := "A" }		// ERROR: wrong type
+//test T52 context a : A { a.q0 := 3 } 		// ERROR: cannot assign to query 
+test T51 context a : A { a.d1.d1 := 3 }
+test T53 context a : A { a.a1 := a.q0() } 
+test T55 context a : A { a.a4 := {} }
+test T56 context a : A { a.a4 := {3} }
+test T57 context a : A { a.a4 := {3,4} } 
+//// TIMEPOINTS:
+test T00 context a : Timepoint, b : Timepoint { a = b }
+test T01 context a : A, b : Timepoint { a.a5 := b }  
+test T02 context a : A { a.a5 := "2019-05-15" }	
+test T03 context a : A { a.a5 := "2019-05-15 10:48" }	
+//test T04 context a : A { a.a5 := "20190515" }				// ERROR: format
+test T05 context a : A { a.a5 + 155 } 
+//test T06 context a : A { a.a5 <= "2019-05-15" }	
+//test T07 context a : A { a.a5 <= "20190515" }				// ERROR: format
+//// IN:
+test T58 context a : A { a.a2 in {3,4} }
+//test T58 context a : A { {3, "a"} }  		// ERROR: first element determines type
+//test T58 context a : A { a.a4 = 3 }   		// ERROR: not a collection
+//test T58 context a : A { a.a4 in {3,4} }  	// ERROR: cannot be a collection
+//test T58 context a : A { a.a4 = {3, "A"} }	// ERROR: first element determines type
+test T58 context a : A { a.a4 = {} }
+//// Functions:
+test T61 { now() }
+test T62 { length("A String") }
+test T63 context a : A { a.q5 = now() }
+test T64 context a : A { a.a5 := now() }
+//// Filters:
+test T71 { A.all }
+test T72 { A.all.count() }
+test T72 { A.all.exists(a1 > 3) }
+test T73 { A.all.exists(d1.d1 > 3) }
+test T74 { A.all.select(x | x.a1 > 3) }  
+test T75 { A.all.select(x | x.d1.d1 > 3) }  
+test T76 { A.all.one(x | x.a1 > 3).q1(2) } 
+test T77 context t : Text { t.length() }   
+//test T78 context t : Text (1..*) { t.length() }  // ERROR: length cannot be applied to collections
+test T79 context t : Text (1..*) { t.count() }
+test T80 context a : A { a.a0.length() } 
+test T81 context a : A { a.a1.cos () } 
+test T82 context a : A { a.a4.min() } 
+test T83 context a : A { a.d2.select(d1 > 3)}  
+test T84 context a : A { a.d2.one(x | x.d1 > 3).q5(2) } 
+test T84 { A.all.min(a2) } 
+test T84 { 22 > A.all.select(a1>0).min(a2) }
+test T85 { "A String".length() } 
+//test T86 context a : A { a.state}  // ERROR: Detail type must not access 'state'  
+test T87 context r : RT3 { r.state = RT3.S1 }  
+//     

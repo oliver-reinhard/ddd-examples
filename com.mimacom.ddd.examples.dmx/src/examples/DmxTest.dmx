@@ -1,0 +1,72 @@
+import Dmx.TestTypes.*
+
+namespace Dmx.Test
+ 
+//test T01 { true }
+//test T02 { 42 }
+//test T03 { 3.14 }
+//test T04 { "A String" }
+//test T05 { undefined }
+//test T05 { {} }
+//test T05 { {1} }
+//test T05 { {1,2} }
+//test T05 { {1, "A"} }		// ERROR: ambiguous type
+////
+//test T11 { A }
+//test T12 { A.all }
+//test T13 { A.a1 }				 	  	// ERROR: static reference to feature (Validation error)
+//test T14 { «[A]» }
+//test T15 { «[[A#a1|a]]» }
+////
+//test T21 context a : A { a }
+//test T21 context a : A { a.all } 		// ERROR: 'all not supported here(Validation error)
+//test T22 context a : A { a1 } 			// ERROR: features are not in scope
+//test T23 context a : A { a.a1 }
+//test T24 context a : A { a.a2 }
+//test T25 context a : A { a.a3 } 
+//test T26 context a : A { a.d1.d1 } 
+//test T26 context a : A { a.d2.d1 } 	 		// ERROR: navigation of collection (Validation error)
+//test T27 context a : A { a.q0 } 
+//test T28 context a : A { a.q0() } 
+//test T29 context a : A { a.q1(1) } 
+//test T30 context a : A { a.q2(1, 2) } 
+//test T31 context a : A { a.q3.d1 } 
+//test T32 context a : A { a.q3().d1 }
+//// Inheritance:
+//test T41 context b : B { b.b1 }
+//test T42 context b : B { b.a1 }
+//test T43 context b : B { b.q0 }
+//test T44 context b : B { b.q0() }
+//// Assignment:
+//test T51 context a : A { a.a1 := 3 }
+//test T52 context a : A { a.q0 := 3 } 		// semantically incorrect (assignment to query)
+//test T51 context a : A { a.d1.d1 := 3 }
+//test T53 context a : A { a.a1 := a.q0() } 
+//test T54 context a : A { a.q1(2) = 3 }
+//// Functions:
+//test T61 { now() }
+//test T62 { length("A String") }
+//test T63 context a : A { a.q0 = now() }
+//test T64 context a : A { a.a1 := now() }
+////// Filters:
+//test T71 { A.all }
+//test T72 { A.all.count() }
+//test T72 { A.all.exists(a1 > 3) }
+//test T72 { A.all.exists(x | x.a1  > 3) }  
+//test T72 context d : D { A.all.exists(x | x.a1 > d.d1) }  
+//test T73 { A.all.exists(d1.d1 > 3) } 
+//test T74 context t : Text { A.all.select(t = "a") }      // non-sensical predicate :-)  
+//test T74 { A.all.select(x | x.a1) }
+//test T74 { A.all.select(x | x.a1 > 3) }  
+//test T75 { A.all.select(x | x.d1.d1 > 3) }  
+//test T76 { A.all.one(x | x.a1 > 3).q1(2) } 
+//test T77 context t : Text { t.length() }   
+//test T78 context t : Text (1..*) { t.length() }  // ERROR: length cannot be applied to collections
+//test T79 context t : Text (1..*) { t.count() }
+//test T80 context a : A { a.a0.length() } 
+//test T81 context a : A { a.a1.cos () } 
+//test T82 context a : A { a.a4.min() } 
+//test T83 context a : A { a.d2.select(d1 > 3)}  
+//test T84 context a : A { a.d2.one(x | x.d1 > 3).q5(2) } 
+//test T85 { "A String".length() }
+//     

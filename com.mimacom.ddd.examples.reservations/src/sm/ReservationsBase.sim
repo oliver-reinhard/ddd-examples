@@ -2,4 +2,3 @@ interface information model sm.ReservationsBase
 
 grab primitive 		dm.types.Name {}
 grab primitive 		dm.Reservations.Size {}
-grab enumeration 	dm.Reservations.Reservations.TableState {}

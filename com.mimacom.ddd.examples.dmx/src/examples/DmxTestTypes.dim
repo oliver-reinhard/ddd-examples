@@ -1,0 +1,66 @@
+domain Dmx.TestTypes
+
+primitive P1 redefines Natural {
+	constraint Range: self | self > 10 AND self < 100
+}
+
+enumeration E1 { L1, L2 }
+
+detail A {
+	a0 : Text
+	a1 : Natural?
+	a2 : Natural
+	a3 : E1
+	a4 : Natural*
+	a5 : Timepoint
+	a6 : Boolean
+	a7 : A
+	detail d1 : D
+	detail d2 : D+
+	q0(): Natural
+	q1(p:P1) : P1
+	q2(left:P1, right:P1) : P1
+	q3() : D
+	q4() : Text
+	q5() : Timepoint
+	constraint Test: x | x.d1.d1 < 10 
+}
+
+detail B extends A {
+	b1 : Natural
+	q6 (left:P1, right:P1) : P1 
+}
+
+detail D {
+	d1 : Natural
+	q5(p:P1) : P1
+}
+
+component C1 {
+	root entity RT1 {
+		id : ID
+		a : Natural
+	}
+	entity ET1 {
+		id : ID
+	}
+}
+
+component C2 {
+	query allRT2() : RT2 (0..*)
+	
+	root entity RT2 {
+		id : ID
+		a : Natural
+		r1 references RT1
+	}
+}
+
+
+component C3 {
+	
+	root entity RT3 extends RT2 {
+		states {S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11}
+		events {E1, E2, E3, E4, E5, E6} 
+	}
+}

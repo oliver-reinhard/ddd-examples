@@ -1,0 +1,44 @@
+import Dmx.TestTypes.RT3
+domain Esm
+
+state model SM for RT3 {
+	direction down
+	
+	initial S1 
+	state   S5
+	final   S6 
+	
+	composite state S2 {
+		direction right
+		
+		initial S3 
+		final   S4
+		
+		transition from S3 to S4 as E3 
+		transition from S3 to S5 as E4
+	}
+	
+	concurrent final state S7 {
+		substate {
+			initial S8
+			final S9
+			
+			transition from S8 to S9 as E6
+		}
+		
+		substate {
+			initial S10
+			final   S11
+			
+			transition from S10 to S11 as E6
+		}
+	}
+	
+	transition from S1 to S1 as E5 when a > 5 
+	transition from S1 to S2 as E1  
+	transition from S2 to S6 as E2   
+	transition from S5 to S6 as E6  
+	transition from S6 to S7 as E6   
+
+	
+}

@@ -16,7 +16,7 @@ detail A {
 	a6 : Boolean
 	a7 : A
 	detail d1 : D
-	detail d2 : D+
+	detail d2 : D (1..*)
 	q0(): Natural
 	q1(p:P1) : P1
 	q2(left:P1, right:P1) : P1

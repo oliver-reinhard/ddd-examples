@@ -1,0 +1,4 @@
+import Vehicles.MotorVehicle
+namespace Vehicles
+
+test Foo context m : MotorVehicle { m.axles.sum(weight)}

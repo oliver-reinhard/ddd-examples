@@ -1,0 +1,35 @@
+import Partners.*
+
+domain Vehicles
+alias Fahrzeuge
+
+primitive Weight alias Gewicht redefines Real 
+primitive Length alias Länge redefines Real
+
+component Vehicles {
+	
+	abstract root entity Vehicle alias Fahrzeug {
+		registrationNumber : ID key
+	}
+	
+	main physical object MotorVehicle alias Motorfahrzeug extends Vehicle { 
+		type : MotorVehicleType
+		constraint TypeIsImmutable : «type is not updatable»
+		dryWeight() : Weight returns axles.weight //sum(a | a.weight) TODO
+		detail axles : Axle (2..*)
+		inverkehrsetzung : Timepoint
+	}
+	
+	enumeration MotorVehicleType alias Motorfahrzeugart { LASTWAGEN, SATTELSCHLEPPER, ARBEITSMOTORWAGEN, ANDERE }
+	
+	detail Axle alias Achse {
+		sequenceNumber : Natural
+		weight : Weight
+		distanceToPrecedingAxle : Length
+		constraint MnAxleDistance : distanceToPrecedingAxle > 1
+	}
+	
+	root entity PushPullVehicle alias Stossbremsfahrzeug extends Vehicle { }
+	
+	root entity Trailer alias Anhänger extends Vehicle { }
+}

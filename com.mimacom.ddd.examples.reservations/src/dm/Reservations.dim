@@ -6,29 +6,28 @@ primitive Message redefines Text
 
 component Reservations {
 
-query has_Free_Table(minSeats : Size) : Boolean 
-returns Table.all.exists(t | t.seats ≥ minSeats AND t.state = Table.FREE) 
+	query has_Free_Table(minSeats : Size) : Boolean 
+	returns Table.all.exists(t | t.seats ≥ minSeats AND t.state = Table.FREE) 
+	
+	query estimated_Wait_Time(seats : Size) : Duration
+	
+	query is_Party_Waiting(available_Seats : Size) : Boolean 
+	returns Party.all.exists(p | p.state = Party.WAITING AND p.size ≤ available_Seats)
 
-query estimated_Wait_Time(seats : Size) : Duration
-
-query is_Party_Waiting(available_Seats : Size) : Boolean 
-returns Party.all.exists(p | p.state = Party.WAITING AND p.size ≤ available_Seats)
-
-main physical object Table {
+	main physical object Table {
 		states { FREE, USED }
-	events { ALLOCATED, CLEANED}
-	seats : Size
-		party references Party (0..1)
+		events { ALLOCATED, CLEANED}
+		seats : Size
+		party references Party?
 	}
 
 	virtual concept Party {
 		states { ARRIVED, WAITING, SEATED, LEFT }
-events { WAIT, SIT, LEAVE }
-name : Name
+		events { WAIT, SIT, LEAVE }
+		name : Name
 		size : Size
 		arrival_Time : Timepoint
 		max_Wait_Time : Duration
 	}
-
 } 
 			

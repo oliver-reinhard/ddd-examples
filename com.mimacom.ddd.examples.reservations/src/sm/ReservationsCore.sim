@@ -8,15 +8,14 @@ query allTables(): Table (0..*) returns «all [Table]s of the restaurant»
 query allWaitingParties(): Party (0..*) returns «all [Party]s waiting for a [Table]»
 
 query newPartyID(): ^ID returns «A new and unique ID for a»
- 
+
 
 grab aggregate dm.Reservations.Reservations {
-	ditch enumeration dm.Reservations.TableState {}
-	morph entity Table {
-		id : ^ID
+	morph root entity dm.Reservations.Table {
+		id : ID
 	} 
-	morph detail Party { 
-		id : ^ID
-	} 
+	morph entity dm.Reservations.Reservations.Party { 
+		id : ID
+	}
 }
 

@@ -1,0 +1,7 @@
+domain Invoicing
+
+component Invoicing {
+	
+	root entity Invoice
+	alias Rechnung { }
+}

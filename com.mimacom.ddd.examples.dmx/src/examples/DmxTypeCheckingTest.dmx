@@ -92,7 +92,8 @@ test T77 context t : Text { t.length() }
 test T79 context t : Text (1..*) { t.count() }
 test T80 context a : A { a.a0.length() } 
 test T81 context a : A { a.a1.cos () } 
-test T82 context a : A { a.a4.min() } 
+test T82 context a : A { a.a4.min() }   
+test T82 context a : A { a.d2.sum(d1) } 
 test T83 context a : A { a.d2.select(d1 > 3)}  
 test T84 context a : A { a.d2.one(x | x.d1 > 3).q5(2) } 
 test T84 { A.all.min(a2) } 

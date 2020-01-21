@@ -2,11 +2,11 @@ import sm.ReservationsBase
 
 interface information model sm.ReservationsUI 
 
-//grab aggregate dm.Reservations.Reservations { }
+//grab aggregate dm.Reservations.Tables { } 
 
-grab entity dm.Reservations.Reservations.Party as SParty {
+grab root entity dm.Reservations.Party as SParty { 
 	id : ID
-}
+} 
  
 morph root entity dm.Reservations.Table to detail STable {
 	id : ID

@@ -1,6 +1,7 @@
 base information model sm.ReservationsBase
 
 grab primitive 		dm.types.Name {}
+grab primitive 		dm.types.Boolean {}
 grab primitive 		dm.types.Duration {}
 grab primitive 		dm.types.Timepoint {}
 grab primitive 		dm.Reservations.Size {}

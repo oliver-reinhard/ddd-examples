@@ -4,24 +4,30 @@ primitive Size redefines Natural0
 
 primitive Message redefines Text
 
-component Reservations {
+component Tables {
 
 	query has_Free_Table(minSeats : Size) : Boolean 
 	returns Table.all.exists(t | t.seats ≥ minSeats AND t.state = Table.FREE) 
 	
 	query estimated_Wait_Time(seats : Size) : Duration
+
+	main physical object Table {
+		states { FREE, USED }
+		events { ALLOCATED, CLEANED} 
+		seats : Size
+		party references Party?
+	}
+}
+
+component Parties {
+	
+	query all_Waiting_Parties() : Party* 
+	returns Party.all.select(p|p.state = Party.WAITING)
 	
 	query is_Party_Waiting(available_Seats : Size) : Boolean 
 	returns Party.all.exists(p | p.state = Party.WAITING AND p.size ≤ available_Seats)
 
-	main physical object Table {
-		states { FREE, USED }
-		events { ALLOCATED, CLEANED}
-		seats : Size
-		party references Party?
-	}
-
-	virtual concept Party {
+	main virtual concept Party {
 		states { ARRIVED, WAITING, SEATED, LEFT }
 		events { WAIT, SIT, LEAVE }
 		name : Name

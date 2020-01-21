@@ -1,4 +1,3 @@
-import dm.Reservations.Reservations.*
 domain dm.Reservations
 
 human actor as Waiter 
@@ -16,7 +15,7 @@ event Table_Cleaned {
 		
 	postconditions
 		case Party_Waiting 
-		when Reservations.is_Party_Waiting(cleaned.seats) :
+		when Parties.is_Party_Waiting(cleaned.seats) :
 			
 			Party_At_Table: cleaned.party = Party.all.one(p1 | 
 						p1.state = Party.WAITING
@@ -30,7 +29,7 @@ event Table_Cleaned {
 			Message_Delivered: Please_Have_A_Seat.delivered
 		
 		case No_Party_Waiting
-		when NOT Reservations.is_Party_Waiting(cleaned.seats):
+		when NOT Parties.is_Party_Waiting(cleaned.seats):
 		
 			TableFree: cleaned.state = Table.FREE
 }

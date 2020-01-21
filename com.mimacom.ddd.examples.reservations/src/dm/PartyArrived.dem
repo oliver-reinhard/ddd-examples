@@ -30,7 +30,7 @@ event Party_Arrived
 
 	postconditions
 		case Party_At_Table 
-		when Reservations.has_Free_Table(p.size):
+		when Tables.has_Free_Table(p.size):
 
 			Party_Seated:
 				p.state = Party.SEATED
@@ -42,7 +42,7 @@ event Party_Arrived
 				Please_Have_A_Seat.delivered
 
 		case Party_Waiting
-		when p.max_Wait_Time ≤ Reservations.estimated_Wait_Time(p.size) AND NOT Reservations.has_Free_Table(p.size):
+		when p.max_Wait_Time ≤ Tables.estimated_Wait_Time(p.size) AND NOT Tables.has_Free_Table(p.size):
 
 			Party_Waiting:
 				p.state = Party.WAITING AND p.arrival_Time = now()
@@ -51,7 +51,7 @@ event Party_Arrived
 				Please_Wait_at_the_Bar.delivered
 
 		case Party_Left
-		when p.max_Wait_Time > Reservations.estimated_Wait_Time(p.size):
+		when p.max_Wait_Time > Tables.estimated_Wait_Time(p.size):
 
 			Party_Left:
 				p.state = Party.LEFT

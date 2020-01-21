@@ -1,8 +1,8 @@
-import dm.Reservations.Reservations
+import dm.Reservations.Tables
 
 domain dm.Reservations 
 
-state model PartyStateModel for dm.Reservations.Reservations.Party {
+state model PartyStateModel for dm.Reservations.Party {
 	direction down
 	
 	initial state ARRIVED
@@ -15,7 +15,7 @@ state model PartyStateModel for dm.Reservations.Reservations.Party {
 	transition from ARRIVED to SEATED as SIT
 	
 	transition from ARRIVED to LEFT as LEAVE
-	when max_Wait_Time > Reservations.estimated_Wait_Time(size)
+	when max_Wait_Time > Tables.estimated_Wait_Time(size)
 	
 	transition right from WAITING to SEATED as SIT
 	

@@ -15,7 +15,7 @@ component Vehicles {
 	main physical object MotorVehicle alias Motorfahrzeug extends Vehicle { 
 		type : MotorVehicleType
 		constraint TypeIsImmutable : «type is not updatable»
-		dryWeight() : Weight returns axles.weight //sum(a | a.weight) TODO
+		dryWeight() : Weight returns axles.sum(weight)
 		detail axles : Axle (2..*)
 		inverkehrsetzung : Timepoint
 	}

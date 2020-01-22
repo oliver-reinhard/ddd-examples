@@ -1,0 +1,90 @@
+domain dm.Questions
+
+component Domains  {
+	
+	main virtual concept Domain {
+		name : Name
+		topics contains Topic*
+	}
+	
+	virtual concept Topic {
+		name : Name
+		contents contains Content*
+	}
+	
+	virtual concept Content {
+		name : Name
+		questions contains Question*
+	}
+}
+
+component Exams {
+	
+	enumeration License_Category {A, A1, B, B1, BPT, C /* etc */}
+	
+	enumeration Question_Kind {SINGLE_CHOICE, MULTIPLE_CHOISE}
+	
+	main virtual concept Exam_Modalities {
+		category : License_Category+
+		question_Kind : Question_Kind
+		number_of_Questions : Natural
+		max_Points : Natural
+		max_Error_Points : Natural
+		duration : Duration
+	}
+}
+
+component Questions {
+	
+	enumeration Language {DE, FR, IT, EN}
+	
+	abstract main virtual concept Question {
+		states { NEW, DRAFT, RELEASED, TRANSLATED, PROOFREAD, ACCEPTED, REJECTED, ACTIVE, INACTIVE }
+		number : ID
+		versionedContent contains Question_Content*
+	}
+	
+	abstract virtual concept Question_Content {
+		language : Language
+		detail version : Version
+		question : Text
+	}
+	
+	virtual concept Multiple_Choice_Content extends Question_Content {
+		detail options : Multiple_Choice_Option (2..*)
+	}
+	
+	virtual concept Aural_Content extends Question_Content {
+		answer : Text
+	}
+	
+	virtual concept Drag_AndDrop_Content extends Question_Content {
+		detail options : Drag_And_Drop_Option (2..*)
+	}
+	
+	detail Multiple_Choice_Option {
+		text : Text
+		correct : Boolean
+	}
+	
+	detail Drag_And_Drop_Option {
+		number : Natural
+		xPosition : Natural
+		yPosition : Natural
+	}
+	
+	detail Version {
+		major : Natural
+		minor : Natural
+	}
+}
+
+
+component Questionnaires {
+	
+	main virtual concept Questionnaire {
+		name : Name
+		modality references Exam_Modalities
+		questions references Question
+	}
+}

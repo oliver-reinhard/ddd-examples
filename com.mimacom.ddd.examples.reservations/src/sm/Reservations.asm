@@ -1,5 +1,6 @@
-application ReservationsApplication
+namespace sm.res
 
-information model sm.ReservationsCore
+application ReservationsApplication
+information model ReservationsCore
 
 

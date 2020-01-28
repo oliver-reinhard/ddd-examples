@@ -1,11 +1,13 @@
-import sm.ReservationsBase.*
+namespace sm.res
+
+//import sm.ReservationsBase.* 
 //import sm.ReservationsUI.*
-import sm.ReservationsCore.*
+//import sm.ReservationsCore.*
 
-service interface sm.UIService
+service interface UIService
 
-interface model sm.ReservationsUI
-core model 		sm.ReservationsCore
+interface model ReservationsUI
+core model 		ReservationsCore
 
 /* 
 operation CreateParty(

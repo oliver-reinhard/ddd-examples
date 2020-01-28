@@ -1,75 +1,79 @@
+domain Requests
+
 import Vehicles.Vehicle
 import Addresses.Address
 import Invoicing.Invoice
 import Partners.Partner
 import Routing.*
 
-domain Requests
-alias Gesuche
-	
-	//// Dossier
+information model FilesIM {
 
-component Files  {
-	
-	root entity File  alias Dossier {
-		request contains Request (1..1)
-		ownedDocuments contains Document (0..*)
-		referencedDocuments references Document (0..*)  
-		detail route : Route
-		routeSegmentEvaluations contains RouteSegmentEvaluation (0..*) 
-		permits contains Permit (0..*)
-		overallPermit contains OverallPermit (0..1)
-		detail comments : Comment (0..*)
-	}
-	
-	detail Comment alias Kommentar {
-		sender references Partner (1..1)  // cyclic dependency
+	// // Dossier
+	component Files  {
+
+		root entity File  alias Dossier {
+			request contains Request (1..1)
+			ownedDocuments contains Document (0..*)
+			referencedDocuments references Document (0..*)
+			detail route : Route
+			routeSegmentEvaluations contains RouteSegmentEvaluation (0..*)
+			permits contains Permit (0..*)
+			overallPermit contains OverallPermit (0..1)
+			detail comments : Comment (0..*)
+		}
+
+		detail Comment alias Kommentar {
+		sender references Partner (1..1) // cyclic dependency
 		receivers references Partner (0..*)
-	}
-	
-	detail Route alias Fahrstrecke { 
+		}
+
+		detail Route alias Fahrstrecke { 
 		detail segments : RouteSegment (0..*)
+		}
+
+		detail RouteSegment alias Teilfahrstrecke {
+		evaluation references RouteSegmentEvaluation (1..1)
+		}
 	}
-	
-	detail RouteSegment alias Teilfahrstrecke {
-		evaluation references RouteSegmentEvaluation (1..1) 
+
+	component Documents {
+
+		root entity Document alias Dokument {
+		}
+	}
+
+	component Requests {
+
+		root entity Request alias Gesuch {
+			type : RequestType
+			preliminaryEvaluation : Boolean
+			simplified : Boolean
+			permanent : Boolean
+			detail payload : Payload (0..1)
+			vehcles references Vehicle (1..*)
+			vehicleOwners references Address (0..*)
+			applicant references Address (1..1)
+			invoice references Address (1..1)
+			permitReceivers references Address (0..*)
+			evaluations contains RouteSegmentEvaluation (0..*)
+		}
+
+		enumeration RequestType alias Gesuchsart { AT, ADR, SUNDAY_NIGHT }
+
+		detail Payload alias Ladung { }
+	}
+
+	component OverallPermits {
+
+		root entity OverallPermit alias Gesamtbewilligung {
+		}
+	}
+
+	component Permits {
+
+		root entity Permit alias Bewilligung {
+			invoice contains Invoice (0..1)
+		}
 	}
 }
 
-component Documents {
-	
-	root entity Document alias Dokument { }
-}
-
-
-component Requests {
-	
-	root entity Request alias Gesuch { 
-		type : RequestType
-		preliminaryEvaluation : Boolean
-		simplified : Boolean
-		permanent : Boolean
-		detail payload : Payload (0..1)
-		vehcles references Vehicle (1..*)
-		vehicleOwners references Address (0..*)
-		applicant references Address (1..1)
-		invoice references Address (1..1) 
-		permitReceivers references Address (0..*)
-		evaluations contains RouteSegmentEvaluation (0..*)
-	}
-	 
-	enumeration RequestType alias Gesuchsart { AT, ADR, SUNDAY_NIGHT }
-	detail Payload alias Ladung { }
-}
-
-component OverallPermits { 
-	
-	root entity OverallPermit alias Gesamtbewilligung { }
-}
-
-component Permits { 
-	
-	root entity Permit alias Bewilligung { 
-		invoice contains Invoice (0..1)
-	}
-}

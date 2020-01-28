@@ -1,45 +1,51 @@
+domain Partners
+
 import Primitives.*
 import Addresses.Address
 import Vehicles.Vehicle
 import Requests.*
 import Routing.*
 
-domain Partners
-alias Partner
+information model PartnersIM {
 
-component Partners {
-	
-	primitive EmailAddress redefines ShortText 
-	
-	detail ContactInformation { 
+	component Partners {
+
+		primitive EmailAddress redefines ShortText
+
+		detail ContactInformation { 
 		email : EmailAddress
+		}
+
+		abstract root entity Partner {
+			name : Name
+			detail info : ContactInformation (0..1)
+			documents contains Document (0..*)
+		}
+
+		root entity Customer alias Kunde extends Partner {
+			addresses contains Address (0..*)
+			vehicles contains Vehicle (0..*)
+			files contains File (0..*)
+		}
+
+		abstract root entity Authority alias Behörde extends Partner {
+		}
+
+		root entity Federal extends Authority {
+			request references Request (0..*)
+			evaluations references RouteSegmentEvaluation (0..*)
+		}
+
+		root entity Canton alias Kanton extends Partner {
+			request references Request (0..*)
+			evaluations references RouteSegmentEvaluation (0..*)
+		}
+
+		root entity Customs alias Zoll extends Authority {
+		}
+
+		root entity Police alias Polizei extends Authority {
+		}
 	}
-	
-	abstract root entity Partner {
-		name : Name
-		detail info : ContactInformation (0..1)
-		documents contains Document (0..*)
-	}
-	
-	root entity Customer alias Kunde extends Partner {
-		addresses contains Address (0..*)
-		vehicles contains Vehicle (0..*)
-		files contains File (0..*)  
-	}
-	
-	abstract root entity Authority alias Behörde extends Partner { }
-	 
-	root entity Federal extends Authority {
-		request references Request (0..*)
-		evaluations references RouteSegmentEvaluation (0..*) 
-	} 
-	
-	root entity Canton alias Kanton extends Partner { 
-		request references Request (0..*)
-		evaluations references RouteSegmentEvaluation (0..*)
-	 }
-	
-	root entity Customs alias Zoll extends Authority { }
-	
-	root entity Police alias Polizei extends Authority { }
-} 
+}
+

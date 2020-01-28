@@ -1,11 +1,9 @@
+domain dm.Reservations
+
 import dm.Reservations.Reservations
 import dm.Reservations.Reservations.Party
 import dm.Reservations.Reservations.PartyState
 import dm.Reservations.Reservations.TableState
-
-domain dm.Reservations
-
-human actor as Leader_of_Party
 
 event Party_Arrived 
 «A group of people (a.k.a. [Party]) have entered the restaurant and request a [Table] for a [[Party#size|number]] of persons.»
@@ -16,12 +14,14 @@ event Party_Arrived
 
 	triggered by
 		Leader_of_Party
+		Waiter
+		
 
 	notifications
 		Please_Have_A_Seat : Message to Leader_of_Party
 		Please_Wait_at_the_Bar : Message to Leader_of_Party
 
-	preconditions 
+	preconditions
 		Party_Just_Arrived:
 			p.state != Party.ARRIVED AND p.arrival_Time = now()
 
@@ -29,7 +29,7 @@ event Party_Arrived
 			NOT Table.all.exists(t | t.party = p)
 
 	postconditions
-		case Party_At_Table 
+		case Party_At_Table
 		when Tables.has_Free_Table(p.size):
 
 			Party_Seated:

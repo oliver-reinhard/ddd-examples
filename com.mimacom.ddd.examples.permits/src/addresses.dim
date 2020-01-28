@@ -1,13 +1,21 @@
 domain Addresses
-alias Adressen
-	
-component Addresses {
-	  
-	root entity Address 
-	alias Adresse {
-		type alias art : AddressType
-		name : Name
+
+information model AddressIM {
+
+	component Addresses {
+
+		root entity Address 
+		alias Adresse {
+			type alias art : AddressType
+			name : Name
+		}
+
+		enumeration AddressType alias Adressart {
+			VEHICLE_OWNER,
+			INVOICE,
+			PERMIT_RECEIVER,
+			APPLICANT
+		}
 	}
-	
-	enumeration AddressType alias Adressart { VEHICLE_OWNER, INVOICE, PERMIT_RECEIVER, APPLICANT}
 }
+

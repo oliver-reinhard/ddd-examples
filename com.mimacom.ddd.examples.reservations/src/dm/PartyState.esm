@@ -1,11 +1,11 @@
-import dm.Reservations.Tables
-
 domain dm.Reservations 
+
+import dm.Reservations.Tables
 
 state model PartyStateModel for dm.Reservations.Party {
 	direction down
 	
-	initial state ARRIVED
+	initial state ARRIVED 
 	state WAITING
 	state SEATED
 	final state LEFT

@@ -1,5 +1,9 @@
 domain Dmx.TestTypes
 
+import abc.def
+
+information model DmxTestTypes 
+
 primitive P1 redefines Natural {
 	constraint Range: self | self > 10 AND self < 100
 }

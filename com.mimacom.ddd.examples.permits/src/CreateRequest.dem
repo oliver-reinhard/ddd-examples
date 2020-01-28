@@ -1,11 +1,7 @@
+domain Requests
+
 import Routing.*
 import Routing.Routing.DetailEvaluation
-
-domain Requests
-alias Gesuche
-
-human actor as Customer alias Kunde  
-human actor as Clerk alias Sachbearbeiter 
 
 event Place_Request alias Gesuch_Einreichen {
 

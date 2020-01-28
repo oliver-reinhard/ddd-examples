@@ -1,7 +1,12 @@
 domain Invoicing
 
-component Invoicing {
-	
-	root entity Invoice
-	alias Rechnung { }
+information model InvoiceIM {
+
+	component Invoicing {
+
+		root entity Invoice
+		alias Rechnung {
+		}
+	}
 }
+

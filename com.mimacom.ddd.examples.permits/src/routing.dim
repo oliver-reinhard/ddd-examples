@@ -1,20 +1,24 @@
 domain Routing
-alias Fahrstrecken
 
-component Routing {
-	
-	root entity RouteSegmentEvaluation alias Teilstreckenabklärung {
-		detail detailEvaluation : DetailEvaluation
-		detail conditions : Condition (0..*)
-		detail prescriptions : Prescription (0..*)
-	}
-	
-	detail DetailEvaluation alias Detailabklärung { 
+
+information model RoutingIM {
+
+	component Routing {
+
+		root entity RouteSegmentEvaluation alias Teilstreckenabklärung {
+			detail detailEvaluation : DetailEvaluation
+			detail conditions : Condition (0..*)
+			detail prescriptions : Prescription (0..*)
+		}
+
+		detail DetailEvaluation alias Detailabklärung { 
 		done : Boolean
 		duration : Natural0
+		}
+
+		detail Condition alias Auflage  { }
+
+		detail Prescription alias Vorschrift { }
 	}
-	
-	detail Condition alias Auflage  { }
-	
-	detail Prescription alias Vorschrift { } 
 }
+

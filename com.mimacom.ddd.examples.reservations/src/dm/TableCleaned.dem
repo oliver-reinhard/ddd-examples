@@ -1,7 +1,5 @@
 domain dm.Reservations
 
-human actor as Waiter 
-
 event Table_Cleaned {
 	
 	context  

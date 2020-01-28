@@ -1,0 +1,5 @@
+domain dm.Reservations
+
+human actor as Waiter 
+
+human actor as Leader_of_Party

@@ -1,4 +1,4 @@
-namespace sm.res
+system sm.res
 
 import dm.Reservations.*
 import sm.ReservationsBase
@@ -7,7 +7,8 @@ core information model ReservationsCore {
 
 	grab aggregate dm.Reservations.Tables {
 	
-		morph root entity dm.Reservations.Table {
+		grab root entity dm.Reservations.Table
+		add {
 			id : ID
 		}
 	
@@ -16,7 +17,8 @@ core information model ReservationsCore {
 	grab aggregate dm.Reservations.Parties {
 	
 	//	query all_Waiting_Parties() : Party (0..*) returns Party.all.select(p|p.state = Party.WAITING)
-		morph root entity dm.Reservations.Party {
+		grab root entity dm.Reservations.Party 
+		add {
 			id : ID
 		}
 	

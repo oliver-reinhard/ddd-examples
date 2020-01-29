@@ -1,4 +1,4 @@
-namespace sm.res
+system sm.res
 
 
 import sm.ReservationsBase
@@ -7,11 +7,13 @@ interface information model ReservationsUI {
 
 	//grab aggregate dm.Reservations.Tables { } 
 	
-	grab root entity dm.Reservations.Party as SParty { 
+	grab root entity dm.Reservations.Party as SParty 
+	add { 
 		id : ID
 	} 
 	 
-	morph root entity dm.Reservations.Table to detail STable {
+	morph root entity dm.Reservations.Table to detail STable 
+	add {
 		id : ID
 	} 
 }

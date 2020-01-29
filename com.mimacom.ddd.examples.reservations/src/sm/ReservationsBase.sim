@@ -1,10 +1,10 @@
-namespace sm.res
+system sm.res
 
 base information model ReservationsBase {
 
-	grab primitive 		dm.types.Name {}
-	grab primitive 		dm.types.Boolean {}
-	grab primitive 		dm.types.Duration {}
-	grab primitive 		dm.types.Timepoint {}  
-	grab primitive 		dm.Reservations.Size {}
+	grab primitive 		dm.types.Name
+	grab primitive 		dm.types.Boolean
+	grab primitive 		dm.types.Duration
+	grab primitive 		dm.types.Timepoint 
+	grab primitive 		dm.Reservations.Size
 }

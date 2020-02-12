@@ -5,4 +5,6 @@ Automatic-Module-Name: com.mimacom.ddd.examples.permits
 Bundle-Vendor: mimacom ag
 Bundle-SymbolicName: com.mimacom.ddd.examples.permits
 Bundle-Version: 0.1.0.qualifier
-Require-Bundle: com.mimacom.ddd.system;bundle-version="0.1.0"
+Require-Bundle: com.mimacom.ddd.system,
+ com.mimacom.ddd.libs,
+ org.eclipse.xtext.xbase.lib

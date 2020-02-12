@@ -1,0 +1,7 @@
+system ch.astra.sb.web
+
+import ch.astra.sb.web.*
+
+interface information model AddressesInterface generate {
+	grab root entity Address
+}

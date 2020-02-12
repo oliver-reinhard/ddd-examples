@@ -1,0 +1,18 @@
+system ch.astra.sb.web
+
+import ch.astra.sb.web.*
+
+core information model AddressesCore generate {
+	grab aggregate Addresses {
+		grab root entity Address { 
+			add id : ID
+			add userId : Text
+		}
+	}
+	
+	/* Entity wrapping the identifier only. */
+	add entity AddressId {
+		value : ID «String representation of java.util.UUID»
+	}
+	
+}

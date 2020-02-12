@@ -1,0 +1,52 @@
+generator model ch.astra.sb.web.Addresses
+
+import ch.astra.sb.web.AddressesService.*
+
+type mappings {
+	datatype Weight
+		is Vehicles.Weight
+		maps to Integer	
+	datatype TimepointToLocalDate
+		is Timepoint
+		maps to java.time.LocalDate
+}
+
+exception mappings {
+	exception AggregateNotFound
+		is AggregateNotFoundException
+		extends IllegalArgumentException
+	message "Wrong number format"
+}  
+
+endpoints for AddressController {
+	GET getAddress for get {
+	 	path /addresses/{addressId}
+	}
+	
+	POST createAddress for create {
+		path /addresses
+	}
+	
+	PUT updateAddress for update {
+		path /addresses/{addressId}
+	}
+	
+	DELETE deleteAddress for delete {
+		path /addresses/{addressId}
+	}
+	
+	GET userHasMainAddress for hasMain {
+		path addresses/hasMainAddress
+	}
+	
+	GET searchAutocompleteByTerm for search {
+		path addresses/autocomplete
+	}
+	
+	/** 
+	 * Uses the user type mapping.
+	 * 
+	 * @see TimepointToLocalDate
+	 */
+	GET sampleOperationWithTypeMapping for foo { path /foo }
+}

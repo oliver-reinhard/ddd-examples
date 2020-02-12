@@ -1,0 +1,30 @@
+domain ch.astra.sb.web
+
+information model AddressIM {
+
+	component Addresses {
+
+		main entity Address 
+		alias Adresse {
+			name : Name
+			addition : Text
+			addition2 : Text
+			street : Text
+			number : Natural
+			postOfficeBox : Boolean
+			postOfficeBoxNumber : Natural
+			postOfficeBoxPostCode : Text
+			postOfficeBoxCity : Text
+			postCode : Text
+			city : Text
+			country : Text
+			email : Text
+			phoneNumber : Text
+			fax : Text
+			language : Text
+			mainAddress : Boolean
+			customerNumber : Text
+		}
+	}
+}
+

@@ -1,0 +1,15 @@
+system permits
+
+core information model AddressesCore generate {
+	grab aggregate Addresses.Addresses {
+		grab root entity Addresses.Address 
+		add { 
+			id : ID
+			userId : Text
+		}
+	}
+	
+	entity AddressId {
+		value : ID «String representation of java.util.UUID»
+	}
+}

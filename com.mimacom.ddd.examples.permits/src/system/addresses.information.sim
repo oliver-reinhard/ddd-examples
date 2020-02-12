@@ -1,0 +1,5 @@
+system permits
+
+interface information model AddressesInterface generate {
+	grab root entity Addresses.Address
+}

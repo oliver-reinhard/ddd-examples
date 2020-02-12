@@ -1,0 +1,8 @@
+system permits
+
+base information model AddressesBase generate {
+	grab primitive Name
+	grab primitive Text
+	grab primitive Natural
+	grab primitive Boolean
+}

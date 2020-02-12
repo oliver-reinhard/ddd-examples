@@ -6,15 +6,24 @@ information model AddressIM {
 
 		root entity Address 
 		alias Adresse {
-			type alias art : AddressType
 			name : Name
-		}
-
-		enumeration AddressType alias Adressart {
-			VEHICLE_OWNER,
-			INVOICE,
-			PERMIT_RECEIVER,
-			APPLICANT
+			addition : Text
+			addition2 : Text
+			street : Text
+			number : Natural
+			postOfficeBox : Boolean
+			postOfficeBoxNumber : Natural
+			postOfficeBoxPostCode : Text
+			postOfficeBoxCity : Text
+			postCode : Text
+			city : Text
+			country : Text
+			email : Text
+			phoneNumber : Text
+			fax : Text
+			language : Text
+			mainAddress : Boolean
+			customerNumber : Text
 		}
 	}
 }

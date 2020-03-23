@@ -4,7 +4,7 @@ import sm.ReservationsCore.*
 import sm.UIService 
 
 user story SelfRegistration
-realises dm.Reservations.Party_Arrived
+realises dm.Restaurant.Party_Arrived
 
 /*
 section Goal

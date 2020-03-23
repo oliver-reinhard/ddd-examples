@@ -1,9 +1,8 @@
-domain dm.Reservations
-
-import dm.Reservations.Reservations
-import dm.Reservations.Reservations.Party
-import dm.Reservations.Reservations.PartyState
-import dm.Reservations.Reservations.TableState
+domain dm.Restaurant 
+import dm.Restaurant.Reservations
+import dm.Restaurant.Reservations.Party
+import dm.Restaurant.Reservations.PartyState
+import dm.Restaurant.Reservations.TableState
 
 event Party_Arrived 
 «A group of people (a.k.a. [Party]) have entered the restaurant and request a [Table] for a [[Party#size|number]] of persons.»
@@ -15,8 +14,7 @@ event Party_Arrived
 	triggered by
 		Leader_of_Party
 		Waiter
-		
-
+	
 	notifications
 		Please_Have_A_Seat : Message to Leader_of_Party
 		Please_Wait_at_the_Bar : Message to Leader_of_Party
@@ -42,7 +40,7 @@ event Party_Arrived
 				Please_Have_A_Seat.delivered
 
 		case Party_Waiting
-		when p.max_Wait_Time ≤ Tables.estimated_Wait_Time(p.size) AND NOT Tables.has_Free_Table(p.size):
+		when p.max_Wait_Time ≤ Tables.estimated_Wait_Time(p.size) AND NOT Tables.has_Free_Table(p.size) :
 
 			Party_Waiting:
 				p.state = Party.WAITING AND p.arrival_Time = now()
@@ -55,6 +53,6 @@ event Party_Arrived
 
 			Party_Left:
 				p.state = Party.LEFT
-
 }
+
 

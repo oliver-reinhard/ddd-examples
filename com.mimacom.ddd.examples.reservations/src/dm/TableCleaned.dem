@@ -1,4 +1,4 @@
-domain dm.Reservations
+domain dm.Restaurant
 
 event Table_Cleaned {
 	
@@ -20,7 +20,7 @@ event Table_Cleaned {
 					AND p1.size ≤ cleaned.seats 
 					AND p1.arrival_Time = Party.all.select(p | p.state = Party.WAITING).min(arrival_Time)
 				)
-				AND cleaned.party.state = Party.SEATED
+				AND cleaned.party.state = Party .SEATED
 			
 			Table_Used: cleaned.state = Table.USED
 			

@@ -1,0 +1,7 @@
+domain dm.Restaurant
+
+event overview EventOverview {
+	include
+		Party_Arrived	
+		Table_Cleaned
+}

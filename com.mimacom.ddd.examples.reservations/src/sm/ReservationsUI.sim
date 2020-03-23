@@ -1,20 +1,24 @@
 system sm.res
 
-
-import sm.ReservationsBase
+//import sm.res.ReservationsBase.* 
 
 interface information model ReservationsUI {
 
 	//grab aggregate dm.Reservations.Tables { } 
 	
-	grab root entity dm.Reservations.Party as SParty 
-	add { 
-		id : ID
+	grab root entity dm.Restaurant.Party as SParty { 
+		add id : ID
+		ditch reference tab
+		
 	} 
 	 
-	morph root entity dm.Reservations.Table to detail STable 
-	add {
-		id : ID
+	morph root entity dm.Restaurant.Table to detail STable {
+		add id : ID
 	} 
+	
+	add detail Bla {
+		my : Natural
+		constraint C : my = 10
+	}
 }
 

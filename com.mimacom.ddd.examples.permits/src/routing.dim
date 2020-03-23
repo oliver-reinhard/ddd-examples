@@ -5,7 +5,7 @@ information model RoutingIM {
 
 	component Routing {
 
-		root entity RouteSegmentEvaluation alias Teilstreckenabklärung {
+		main entity RouteSegmentEvaluation alias Teilstreckenabklärung {
 			detail detailEvaluation : DetailEvaluation
 			detail conditions : Condition (0..*)
 			detail prescriptions : Prescription (0..*)

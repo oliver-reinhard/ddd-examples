@@ -11,7 +11,7 @@ information model FilesIM {
 	// // Dossier
 	component Files  {
 
-		root entity File  alias Dossier {
+		main entity File  alias Dossier {
 			request contains Request (1..1)
 			ownedDocuments contains Document (0..*)
 			referencedDocuments references Document (0..*)
@@ -38,13 +38,13 @@ information model FilesIM {
 
 	component Documents {
 
-		root entity Document alias Dokument {
+		main entity Document alias Dokument {
 		}
 	}
 
 	component Requests {
 
-		root entity Request alias Gesuch {
+		main entity Request alias Gesuch {
 			type : RequestType
 			preliminaryEvaluation : Boolean
 			simplified : Boolean
@@ -65,13 +65,13 @@ information model FilesIM {
 
 	component OverallPermits {
 
-		root entity OverallPermit alias Gesamtbewilligung {
+		main entity OverallPermit alias Gesamtbewilligung {
 		}
 	}
 
 	component Permits {
 
-		root entity Permit alias Bewilligung {
+		main entity Permit alias Bewilligung {
 			invoice contains Invoice (0..1)
 		}
 	}

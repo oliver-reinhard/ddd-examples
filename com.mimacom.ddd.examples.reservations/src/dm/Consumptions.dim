@@ -1,0 +1,28 @@
+domain dm.Restaurant
+
+information model Consumptions {
+		
+	component Tabulations {
+		
+		main entity Tab {
+			states { OPEN, PAID }
+			detail items : TabItem*
+			totalAmount() : Money returns items.sum(price.amount)
+		}
+		
+		detail TabItem {
+			units : Size
+			product references Product
+			price() : Money returns units * product.pricePerUnit.amount
+		}
+	}
+	
+	component Products {
+		
+		main entity Product {
+			designation : Text
+			pricePerUnit : Money
+		}
+	}
+}
+

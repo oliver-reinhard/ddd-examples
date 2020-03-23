@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.mimacom.ddd.examples.permits
+Automatic-Module-Name: com.mimacom.ddd.examples.permits
 Bundle-Vendor: mimacom ag
 Bundle-SymbolicName: com.mimacom.ddd.examples.permits
 Bundle-Version: 0.1.0.qualifier

@@ -10,11 +10,11 @@ information model PartnersIM {
 
 	component Vehicles {
 
-		abstract root entity Vehicle alias Fahrzeug {
+		abstract main entity Vehicle alias Fahrzeug {
 			registrationNumber : ID key
 		}
 
-		main physical object MotorVehicle alias Motorfahrzeug extends Vehicle {
+		main autonomous entity MotorVehicle alias Motorfahrzeug extends Vehicle {
 			type : MotorVehicleType
 			constraint TypeIsImmutable : «type is not updatable»
 			dryWeight() : Weight returns axles.sum(weight)
@@ -36,10 +36,10 @@ information model PartnersIM {
 		constraint MnAxleDistance : distanceToPrecedingAxle > 1
 		}
 
-		root entity PushPullVehicle alias Stossbremsfahrzeug extends Vehicle {
+		main entity PushPullVehicle alias Stossbremsfahrzeug extends Vehicle {
 		}
 
-		root entity Trailer alias Anhänger extends Vehicle {
+		main entity Trailer alias Anhänger extends Vehicle {
 		}
 	}
 }

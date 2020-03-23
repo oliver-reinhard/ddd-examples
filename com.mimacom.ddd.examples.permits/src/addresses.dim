@@ -4,7 +4,7 @@ information model AddressIM {
 
 	component Addresses {
 
-		root entity Address 
+		main entity Address 
 		alias Adresse {
 			type alias art : AddressType
 			name : Name

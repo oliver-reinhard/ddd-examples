@@ -1,4 +1,8 @@
 domain Requests
 
-human actor as Customer alias Kunde  
-human actor as Clerk alias Sachbearbeiter 
+actor model Actors {
+
+	human actor as Customer alias Kunde  
+	human actor as Clerk alias Sachbearbeiter
+
+}

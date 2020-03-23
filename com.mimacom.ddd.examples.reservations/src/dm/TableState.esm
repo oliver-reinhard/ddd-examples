@@ -1,6 +1,6 @@
-domain dm.Reservations 
+domain dm.Restaurant 
 
-state model TableStateModel for dm.Reservations.Table {
+state model TableStateModel for dm.Restaurant.Table {
 	
 	initial state FREE
 	final state USED

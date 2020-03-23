@@ -1,6 +1,6 @@
-import Dmx.TestTypes.*
-
 namespace Dmx.Test
+
+import Dmx.TestTypes.*
  
 test T21 context a : Natural { a }
 test T21 context a : Natural := 1 { a = 1 }

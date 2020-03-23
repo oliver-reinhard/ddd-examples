@@ -1,5 +1,6 @@
-import Dmx.TestTypes.RT3
 domain Esm
+
+import Dmx.TestTypes.RT3
 
 state model SM for RT3 {
 	direction down

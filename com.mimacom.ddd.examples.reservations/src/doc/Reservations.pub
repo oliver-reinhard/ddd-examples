@@ -1,0 +1,81 @@
+import dm.Restaurant.^Table
+
+Component (reservations) "A formal Domain Model for Restaurant Reservations"
+class:	Module
+
+generate html latex
+
+symbol: DOC_AUTHOR  = «Oliver Reinhard»
+symbol: DOC_DATE = «2020-02-18» 
+
+Abstract {
+	P «This essay explores a common everyday situation as a short case study by ways of a formal domain model.»   
+	P «The situation is a party of people entering a restaurant and asking for a free table.»
+	P «The analysis reveals two main entities, two roles and two domain events and establishes their properties and relationships in a precise and consistent manner.»
+}
+//
+//TableOfContents { }  
+//ListOfTables { } 
+  
+Body {
+	Section «Situation»
+	P «A party of **n** people enter a restaurant at which they would like to eat but don't have a table reservation.»
+	
+		Subsection «Business Domain» 
+		P «The business domain this scenario is **restaurant management**.»
+		
+		Subsection «Party»
+		P «One of the two central entities in this scenario is the party of people, short party. In this context, party is a virtual concept referring to a number of people who have a common purpose like travelling or a some social gathering. A party exists only as long as there are members sharing a purpose. There is no physical evidence of the party as such.»
+		
+		Figure «Party Life Cycle» {
+			widthPercent: 60
+			root: dm.Restaurant.PartyStateModel type: esm.entityStateDiagram  
+		}
+		
+		Subsection «Table»
+		P «The other central entity in this scenario is the table. Tables are physical objects that have a life in the physical world. Since this domain model is not about manufacturing a table, it only captures the existence and the properties of a table but it is not concerne with, for example, creating a table. The tables of a restaurant simply exist, however, the domain model is concerned with their presence, their size, and maybe their locations, e.g. at the window, on the terrace, by the bar, etc.»
+
+		Subsection «Party enters Restaurant»
+		P «A Part enters a restaurant and steps up to the signpost reading "Wait to be seated".»
+		
+		Figure «Use Case: Party arrived» {
+			widthPercent: 60
+			root: dm.Restaurant.Party_Arrived type: dem.eventUseCase 
+		}
+		
+//		CodeListing «Party arrived» 
+//			include: dm.Restaurant.PartyStateModel 
+		 
+		Subsection «Information Model»
+		
+		Figure «Reservations Information Model» {
+			root: dm.Restaurant.Reservations type: dim.informationStructure
+		}
+		
+		CodeListing «Some Code» {
+			numbered: true 
+				"initial state ARRIVED 
+				state WAITING
+				state SEATED
+				final state LEFT"
+		}
+		
+		CodeListing «Some included Code» { 
+			numbered: true 
+			include: dm.Restaurant.Party_Arrived.Party_At_Table
+		}
+		
+		P «Here's an example on non-titled code:»
+		
+		CodeListing title: false  {
+			numbered: true
+			include: dm.Restaurant.Tab.PAID
+		}
+		
+		P «No title here!»
+		
+		
+		CodeListing «More included Code» { 
+			include: dm.Restaurant.Party_Arrived.Party_At_Table
+		}
+}

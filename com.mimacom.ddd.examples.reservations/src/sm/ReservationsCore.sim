@@ -1,26 +1,29 @@
 system sm.res
 
-import dm.Reservations.*
-import sm.ReservationsBase
+import sm.res.ReservationsBase.*
 
 core information model ReservationsCore { 
 
-	grab aggregate dm.Reservations.Tables {
+//	grab aggregate dm.Restaurant.Tables {
+//		grab query estimated_Wait_Time(grab seats)
+////		query q(): Boolean
+//		query r(): Natural
+//	
+//		grab root entity dm.Restaurant.Table
+//		add {
+//			grab seats as seats2
+//			id : ID
+//		}
+//	}
 	
-		grab root entity dm.Reservations.Table
-		add {
-			id : ID
+	grab aggregate dm.Restaurant.Parties {
+		grab query is_Party_Waiting(add c : Natural) 
+//		query q(): Party
+		
+		grab root entity dm.Restaurant.Party {
+			add id : ID
+			morph query waited_more_than to Boolean (add c : Natural)
+			ditch reference tab
 		}
-	
-	}
-	
-	grab aggregate dm.Reservations.Parties {
-	
-	//	query all_Waiting_Parties() : Party (0..*) returns Party.all.select(p|p.state = Party.WAITING)
-		grab root entity dm.Reservations.Party 
-		add {
-			id : ID
-		}
-	
 	}
 }

@@ -1,8 +1,8 @@
-domain dm.Reservations 
+domain dm.Restaurant 
 
-import dm.Reservations.Tables
+import dm.Restaurant.Tables
 
-state model PartyStateModel for dm.Reservations.Party {
+state model PartyStateModel for dm.Restaurant.Party {
 	direction down
 	
 	initial state ARRIVED 

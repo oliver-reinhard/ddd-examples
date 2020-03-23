@@ -1,0 +1,26 @@
+/*
+ * This publication prototype (a.k.a. class) defines the structural layout of publications for ....
+ */
+publication class Module
+nature: Web
+
+symbol: DOC_AUTHOR
+symbol: DOC_DATE 
+
+latexClass: article
+latexPreamble: 
+«\author{[DOC_AUTHOR]}  
+\title{[DOC_TITLE]}»
+
+segments:
+	Abstract { }
+	TableOfContents { 
+		title:"Table of Contents"
+	}
+	Body { }
+divisions:
+//	Part { numbering: capitalRoman }
+//	Chapter {numbering: arabic} 
+	Section {}
+	Sub {}
+	Subsub {}

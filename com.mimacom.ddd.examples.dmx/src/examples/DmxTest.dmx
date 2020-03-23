@@ -1,6 +1,5 @@
-import Dmx.TestTypes.*
-
 namespace Dmx.Test
+import Dmx.TestTypes.*
  
 //test T01 { true }
 //test T02 { 42 }

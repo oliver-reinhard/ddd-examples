@@ -1,4 +1,4 @@
-namespace sm.res
+system sm.res
 
 //import sm.ReservationsBase.* 
 //import sm.ReservationsUI.*

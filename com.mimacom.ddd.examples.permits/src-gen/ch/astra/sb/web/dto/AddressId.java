@@ -1,5 +1,6 @@
 package ch.astra.sb.web.dto;
 
+import java.util.Objects;
 import org.eclipse.xtext.xbase.lib.util.ToStringBuilder;
 
 @SuppressWarnings("all")
@@ -26,13 +27,12 @@ public class AddressId {
     if (o == null || getClass() != o.getClass()) return false;
     AddressId that = (AddressId) o;
     return
-    	java.util.Objects.equals(getValue(), that.getValue())
-    	;
+    	Objects.equals(getValue(), that.getValue());
   }
   
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(
+    return Objects.hash(
     	getValue()
     );
   }

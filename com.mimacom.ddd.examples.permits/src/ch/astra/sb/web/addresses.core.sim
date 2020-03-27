@@ -8,6 +8,7 @@ core information model AddressesCore generate {
 			add id : ID
 			add userId : Text
 		}
+		grab enumeration Addresses.PhoneNumberType {}
 	}
 	
 	/* Entity wrapping the identifier only. */

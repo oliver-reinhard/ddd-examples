@@ -20,10 +20,17 @@ information model AddressIM {
 			country : Text
 			email : Text
 			phoneNumber : Text
+			phoneNumberCountry : PhoneNumberType /* testing */
 			fax : Text
 			language : Text
 			mainAddress : Boolean
 			customerNumber : Text
+		}
+		
+		/* testing */
+		enumeration PhoneNumberType alias Country {
+			SWITZERLAND,
+			FRANCE
 		}
 	}
 }

@@ -5,11 +5,11 @@ import ch.astra.sb.web.AddressesService.*
 type mappings {
 	datatype Weight
 		is Vehicles.Weight
-		maps to Integer	
-	datatype TimepointToLocalDate
+		maps to Integer
+	datatype TimepointToLocalDate 
 		is Timepoint
 		maps to java.time.LocalDate
-}
+}  
 
 exception mappings {
 	exception AggregateNotFound
@@ -24,7 +24,7 @@ endpoints for AddressController {
 	}
 	
 	POST createAddress for create {
-		path /addresses
+		path /addresses 
 	}
 	
 	PUT updateAddress for update {

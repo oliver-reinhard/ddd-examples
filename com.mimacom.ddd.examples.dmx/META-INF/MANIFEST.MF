@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dmx
+Bundle-SymbolicName: com.mimacom.ddd.examples.dmx
+Bundle-Version: 1.0.0.qualifier
+Export-Package: examples
+Require-Bundle: com.mimacom.ddd.system

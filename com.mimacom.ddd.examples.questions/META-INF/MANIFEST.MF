@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Questions
+Bundle-SymbolicName: com.mimacom.ddd.examples.questions
+Bundle-Version: 1.0.0.qualifier

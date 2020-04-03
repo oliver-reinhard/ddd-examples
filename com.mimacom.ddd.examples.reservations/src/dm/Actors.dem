@@ -1,6 +1,9 @@
 domain dm.Restaurant
 
+actor model RestaurantActors {
 
-human actor as Waiter
-human actor as Leader_of_Party
+	human actor as Waiter
+	human actor as Leader_of_Party
+
+}
 

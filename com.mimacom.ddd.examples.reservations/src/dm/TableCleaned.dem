@@ -22,7 +22,7 @@ event Table_Cleaned {
 				)
 				AND cleaned.party.state = Party .SEATED
 			
-			Table_Used: cleaned.sta	te = Table.USED
+			Table_Used: cleaned.state = Table.USED
 			
 			Message_Delivered: Please_Have_A_Seat.delivered
 		

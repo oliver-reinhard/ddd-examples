@@ -11,9 +11,10 @@ information model Reservations {
 		query has_Free_Table(minSeats : Size) : Boolean 
 		returns Table.all.exists(t | t.seats ≥ minSeats AND t.state = Table.FREE)
 
-		query estimated_Wait_Time(seats : Size) : Duration   
+		query estimated_Wait_Time(seats : Size) : Duration
 
-		main autonomous entity Table {
+		main autonomous entity Table 
+		«A table in a restaurant» {
 			states { FREE, USED }
 			events { ALLOCATED, CLEANED} 
 			seats : Size
@@ -38,7 +39,7 @@ information model Reservations {
 			max_Wait_Time : Duration
 			time_waited() : Duration returns  now() - arrival_Time
 			waited_more_than(d : Duration) : Boolean returns time_waited > d
-			tab contains Tab?
+//			tab contains Tab?
 		}
 	}
 }

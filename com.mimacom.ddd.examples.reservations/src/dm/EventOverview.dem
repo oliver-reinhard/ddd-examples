@@ -1,7 +1,10 @@
 domain dm.Restaurant
 
 event overview EventOverview {
-	include
-		Party_Arrived	
-		Table_Cleaned
+	include all
+//	include 
+//		Party_Arrived
+//		Table_Cleaned
+//	exclude 
+//		Table_Cleaned
 }

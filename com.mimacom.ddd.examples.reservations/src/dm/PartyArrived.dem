@@ -1,10 +1,6 @@
 domain dm.Restaurant 
-import dm.Restaurant.Reservations
-import dm.Restaurant.Reservations.Party
-import dm.Restaurant.Reservations.PartyState
-import dm.Restaurant.Reservations.TableState
 
-event Party_Arrived 
+event Party_arrived 
 «A group of people (a.k.a. [Party]) have entered the restaurant and request a [Table] for a [[Party#size|number]] of persons.»
 {
 
@@ -16,42 +12,53 @@ event Party_Arrived
 		Waiter
 	
 	notifications
-		Please_Have_A_Seat : Message to Leader_of_Party
-		Please_Wait_at_the_Bar : Message to Leader_of_Party
+		Please_have_a_Seat : Message to Leader_of_Party
+		Please_wait_at_the_Bar : Message to Leader_of_Party
 
 	preconditions
-		Party_Just_Arrived:
+		Party_just_arrived:
+			«[p] in state [Party.ARRIVED] and arrived just now»
 			p.state != Party.ARRIVED AND p.arrival_Time = now()
 
-		Party_Not_At_Table:
+		Party_not_at_Table:
+			«[p] ist not at a [Table] yet»
 			NOT Table.all.exists(t | t.party = p)
 
 	postconditions
-		case Party_At_Table
+		case Party_at_Table
+		«There is a free table large enough for [p]»
 		when Tables.has_Free_Table(p.size):
 
-			Party_Seated:
+			Party_seated:
+				«[p] is seated»
 				p.state = Party.SEATED
 
-			Party_Assigned_To_Table:
+			Party_assigned_to_Table:
+				«There was a matching [Table] at which [p] now sits and which is now marked as used»
 				Table.all.exists(t | t.seats ≥ p.size AND t.party = p AND t.state = Table.USED)
 
-			Message_Delivered:
-				Please_Have_A_Seat.delivered
+			Message_delivered:
+				«[p] was notified to have a seat»
+				Please_have_a_Seat.delivered
 
-		case Party_Waiting
-		when p.max_Wait_Time ≤ Tables.estimated_Wait_Time(p.size) AND NOT Tables.has_Free_Table(p.size) :
+		case Party_waiting
+		«There is no free [Table] yet AND [p] is prepared to wait for the quoted wait time AND »
+		when NOT  Tables.has_Free_Table(p.size) AND p.max_Wait_Time ≤ Tables.estimated_Wait_Time(p.size) :
 
-			Party_Waiting:
+			Party_waiting: 
+				«[p] are waiting now»
 				p.state = Party.WAITING AND p.arrival_Time = now()
 
-			Message_Delivered:
-				Please_Wait_at_the_Bar.delivered
+			Message_delivered:
+				«[p] was notified to wait at the bar»
+				Please_wait_at_the_Bar.delivered
 
-		case Party_Left
+		case Party_left
+		«[p] has waited long enough»
 		when p.max_Wait_Time > Tables.estimated_Wait_Time(p.size):
 
-			Party_Left:
+			Party_left:
+				«[p] has left»
 				p.state = Party.LEFT
 }
 

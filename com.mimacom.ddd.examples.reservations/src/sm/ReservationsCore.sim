@@ -2,7 +2,7 @@ system sm.res
 
 import sm.res.ReservationsBase.*
 
-core information model ReservationsCore { 
+core information model ReservationsCore {
 
 //	grab aggregate dm.Restaurant.Tables {
 //		grab query estimated_Wait_Time(grab seats)
@@ -19,11 +19,11 @@ core information model ReservationsCore {
 	grab aggregate dm.Restaurant.Parties {
 		grab query is_Party_Waiting(add c : Natural) 
 //		query q(): Party
-		
+		 
 		grab root entity dm.Restaurant.Party {
 			add id : ID
 			morph query waited_more_than to Boolean (add c : Natural)
-			ditch reference tab
+//			ditch reference tab
 		}
 	}
 }

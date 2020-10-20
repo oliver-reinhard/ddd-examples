@@ -1,17 +1,17 @@
 system sm.res
 
-import sm.res.*
-import sm.res.UIService 
+import sm.res.ReservationsUI
+import sm.res.ReservationsUI.* 
 
 user story SelfRegistration
-realises dm.Restaurant.Party_arrived 
+realises dm.Restaurant.Party_arrived
 
-goal «As a [Party], I want to register at the iPad provided for a free [Table] for [[Party.size]] persons »
+goal «As a [SParty], I want to register at the iPad provided for a free [^Table] for [[SParty#size]] persons »
 
 Section «Prerequisites»
-P «[Party#size > 0]»
+P «[[SParty#size]] > 0»
 
 Section «Analysis»
-P «Use case has to be based on the [UIService].»
+P «Use case has to be based on the [ReservationsUI].»
 
 Section «Acceptance_Criteria»

@@ -1,24 +1,34 @@
 system sm.res
 
-//import sm.res.ReservationsBase.* 
+import sm.res.ReservationsBase.Natural
+import sm.res.ReservationsBase.SID
+import sm.res.ReservationsBase.Size
+import sm.res.ReservationsBase.Duration
+import sm.res.ReservationsBase.Boolean
+import sm.res.ReservationsBase.SName
+import sm.res.ReservationsBase.Timepoint
 
 interface information model ReservationsUI {
 
-	//grab aggregate dm.Reservations.Tables { } 
+	grab enumeration dm.Restaurant.Location
 	
-	grab root entity dm.Restaurant.Party as SParty { 
-		add id : ID
-		ditch reference tab
-		
+	grab aggregate dm.Restaurant.Tables { 
+		 
 	} 
+	
+	grab root entity dm.Restaurant.Party as SParty {
+		add id : SID
+		ditch reference tab 
+		 
+	}  
 	 
-	morph root entity dm.Restaurant.Table to detail STable {
-		add id : ID
-	} 
+//	morph root entity dm.Restaurant.Table to detail STable {
+//		add id : ID
+//	} 
 	
 	add detail Bla {
-		my : Natural
-		constraint C : my = 10
+		my : Natural 
+//		constraint C : my = 10
 	}
 }
 

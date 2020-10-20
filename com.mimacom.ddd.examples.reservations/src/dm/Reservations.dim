@@ -1,23 +1,29 @@
 domain dm.Restaurant
 
-information model Reservations {
+information model ReservationsDM {
 
 	primitive Size redefines Natural
 
 	primitive Message redefines Text
-
+	
+	enumeration Location {
+		WINDOW, CENTER, CORNER, TERRACE
+	}
+ 
 	component Tables {
 
 		query has_Free_Table(minSeats : Size) : Boolean 
 		returns Table.all.exists(t | t.seats ≥ minSeats AND t.state = Table.FREE)
 
-		query estimated_Wait_Time(seats : Size) : Duration
+		query estimated_Wait_Time(seats : Size) : Duration 
+		
 
-		main autonomous entity Table 
+		main autonomous entity Table
 		«A table in a restaurant» {
 			states { FREE, USED }
 			events { ALLOCATED, CLEANED} 
 			seats : Size
+			location : Location
 			party references Party?
 		}
 	}
@@ -30,7 +36,7 @@ information model Reservations {
 		query is_Party_Waiting(available_Seats : Size) : Boolean 
 		returns Party.all.exists(p | p.state = Party.WAITING AND p.size ≤ available_Seats)
 
-		main entity Party {
+		main autonomous entity Party {
 			states { ARRIVED, WAITING, SEATED, LEFT }
 			events { WAIT, SIT, LEAVE }
 			name : Name
@@ -39,7 +45,21 @@ information model Reservations {
 			max_Wait_Time : Duration
 			time_waited() : Duration returns  now() - arrival_Time
 			waited_more_than(d : Duration) : Boolean returns time_waited > d
-//			tab contains Tab?
+			tab contains Tab?
+		}
+	}
+	
+	component Reservations {
+		
+		main entity Reservation {
+			party references Party
+			preference : Preference?
+			table references Table?
+		}
+		
+		detail Preference {
+			location : Location
+			seats : Size
 		}
 	}
 }

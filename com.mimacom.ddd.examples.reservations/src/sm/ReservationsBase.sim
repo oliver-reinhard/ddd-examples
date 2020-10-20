@@ -1,10 +1,16 @@
 system sm.res
 
-base information model ReservationsBase {
+//import model sm.res.Reservations0
 
-	grab primitive 		Name as SName
-	grab primitive 		Boolean
-	grab primitive 		Duration
-	grab primitive 		Timepoint 
-	grab primitive 		dm.Restaurant.Size
+base type model ReservationsBase 
+//use sm.res.Reservations0
+{
+
+	grab primitive dm.types.Name 			as SName  
+	grab primitive dm.types.Boolean
+	grab primitive dm.types.Natural
+	grab primitive dm.types.Duration
+	grab primitive dm.types.Timepoint 
+	grab primitive dm.types.ID 				as SID
+	grab primitive dm.Restaurant.Size
 }

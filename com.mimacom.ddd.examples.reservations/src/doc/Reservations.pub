@@ -23,7 +23,7 @@ Body {
 	P «A party of **n** people enter a restaurant at which they would like to eat but don't have a table reservation.»
 	
 		Subsection «Business Domain» 
-		P «The business domain this scenario is **restaurant management**.»
+		P «The business domain this scenario is **restaurant management**.» 
 		
 		Subsection «[Party]»
 		P «One of the two central entities in this scenario is the party of people, short party. In this context, party is a virtual concept referring to a number of people who have a common purpose like travelling or a some social gathering. A party exists only as long as there are members sharing a purpose. There is no physical evidence of the party as such.»
@@ -50,7 +50,7 @@ Body {
 		Subsection «Information Model»
 		
 		Figure «Reservations Information Model» {
-			root: dm.Restaurant.Reservations type: dim.informationStructure
+			root: dm.Restaurant.ReservationsDM type: dim.informationStructure
 		}
 		
 		CodeListing «Some Code» {

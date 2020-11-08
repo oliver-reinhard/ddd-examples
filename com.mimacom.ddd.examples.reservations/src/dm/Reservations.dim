@@ -2,7 +2,9 @@ domain dm.Restaurant
 
 information model ReservationsDM {
 
-	primitive Size redefines Natural
+	primitive Size redefines Natural {
+		constraint NonNegative: «value ≥ 0»
+	}
 
 	primitive Message redefines Text
 	

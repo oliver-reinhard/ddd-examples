@@ -1,0 +1,8 @@
+domain dm.res
+
+information view TablesReadView {
+	
+	grab aggregate dm.Restaurant.Tables read only {
+		ditch query estimated_Wait_Time
+	}
+}

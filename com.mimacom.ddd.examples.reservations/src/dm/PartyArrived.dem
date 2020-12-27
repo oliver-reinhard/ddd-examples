@@ -2,6 +2,7 @@ domain dm.Restaurant
 
 event Party_arrived 
 «A group of people (a.k.a. [Party]) have entered the restaurant and request a [Table] for a [[Party#size|number]] of persons.»
+NOTE n0 { «Event Note» orange}
 {
 
 	context
@@ -10,10 +11,14 @@ event Party_arrived
 	triggered by
 		Leader_of_Party
 		Waiter
+		NOTE n1 { «Trigger Note» orange}
 	
 	notifications
 		Please_have_a_Seat : Message to Leader_of_Party
 		Please_wait_at_the_Bar : Message to Leader_of_Party
+		NOTE n1 { «Notification [Waiter] x^^2^^ Note 
+			> on 2 lines» orange
+		}
 
 	preconditions
 		Party_just_arrived:
@@ -35,7 +40,7 @@ event Party_arrived
 
 			Party_assigned_to_Table:
 				«There was a matching [Table] at which [p] now sits and which is now marked as used»
-				Table.all.exists(t | t.seats ≥ p.size AND t.party = p AND t.state = Table.USED)
+				Table.all.exists(t | t.details.seats ≥ p.size AND t.party = p AND t.state = Table.USED)
 
 			Message_delivered:
 				«[p] was notified to have a seat»

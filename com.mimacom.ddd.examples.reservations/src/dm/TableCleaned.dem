@@ -1,23 +1,27 @@
 domain dm.Restaurant
 
-event Table_Cleaned {
+event Table_Cleaned
+NOTE n1 { «Event note» }
+{
 	
 	context  
 		cleaned : Table
 		
 	triggered by 
 		Waiter
+		NOTE n2 { «Trigger note» }
 		
 	notifications
 		Please_Have_A_Seat : Message to Leader_of_Party
+		NOTE n3 { «Notification note» }
 		
-	postconditions
+	postconditions 
 		case Party_Waiting 
-		when Parties.is_Party_Waiting(cleaned.seats) :
+		when Parties.is_Party_Waiting(cleaned.details.seats) :
 			
 			Party_At_Table: cleaned.party = Party.all.one(p1 | 
 						p1.state = Party.WAITING
-					AND p1.size ≤ cleaned.seats 
+					AND p1.size ≤ cleaned.details.seats 
 					AND p1.arrival_Time = Party.all.select(p | p.state = Party.WAITING).min(arrival_Time)
 				)
 				AND cleaned.party.state = Party .SEATED
@@ -27,7 +31,7 @@ event Table_Cleaned {
 			Message_Delivered: Please_Have_A_Seat.delivered
 		
 		case No_Party_Waiting
-		when NOT Parties.is_Party_Waiting(cleaned.seats):
+		when NOT Parties.is_Party_Waiting(cleaned.details.seats):
 		
 			TableFree: cleaned.state = Table.FREE
 }

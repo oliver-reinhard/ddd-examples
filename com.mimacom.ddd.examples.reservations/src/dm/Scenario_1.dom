@@ -1,0 +1,44 @@
+domain  dm.Restaurant
+
+//import dm.Restaurant.Table
+import dm.Restaurant.Tables.TableDetails
+
+snapshot A1 
+NOTE A1 { «A1» blue}
+{
+	p1 =  entity Party {
+		name = "" 
+		size = 5
+		arrival_Time = "2020-12-27 17:41"
+		NOTE F2 { «F2» blue}
+		max_Wait_Time = 1
+	}
+	NOTE P1 { «P1» blue}
+	
+	t = entity Table {
+		details = detail TableDetails {
+			seats = 4
+			location = Location.WINDOW
+		}
+		party = p1
+		NOTE A2 { «A2» red}
+	}
+}
+
+snapshot A2 
+{
+	p1 =  entity Party {
+		name = ""
+		size = 5
+		arrival_Time = "2020-12-27 17:41"
+		max_Wait_Time = 1
+	}
+	
+	t = entity Table {
+		details = detail TableDetails {
+			seats = 4
+			location = Location.WINDOW
+		}
+		party = p1
+	}
+}

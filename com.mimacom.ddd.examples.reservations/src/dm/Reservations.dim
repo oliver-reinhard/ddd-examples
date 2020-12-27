@@ -1,32 +1,43 @@
 domain dm.Restaurant
 
-information model ReservationsDM {
+information model ReservationsDM 
+NOTE M1 { «ReservationsDM
+   '<size:20>Second' </size> **line**» white
+} 
+{
 
-	primitive Size redefines Natural {
+	primitive Size redefines Natural  
+	NOTE T1 { «Size» blue}
+	{
 		constraint NonNegative: «value ≥ 0»
 	}
 
 	primitive Message redefines Text
 	
 	enumeration Location {
-		WINDOW, CENTER, CORNER, TERRACE
+		WINDOW, CENTER, CORNER NOTE L1 {«CORNER»}, TERRACE
 	}
  
 	component Tables {
 
-		query has_Free_Table(minSeats : Size) : Boolean 
-		returns Table.all.exists(t | t.seats ≥ minSeats AND t.state = Table.FREE)
+		query has_Free_Table(minSeats : Size) : Boolean
+		returns Table.all.exists(t | t.details.seats ≥ minSeats AND t.state = Table.FREE)
 
 		query estimated_Wait_Time(seats : Size) : Duration 
-		
 
 		main autonomous entity Table
-		«A table in a restaurant» {
+		«A table in a restaurant»
+		NOTE T2 { «all_Waiting_Parties» }
+	 {
 			states { FREE, USED }
 			events { ALLOCATED, CLEANED} 
+			detail details : TableDetails
+			party references Party? 
+		}
+		
+		detail TableDetails {
 			seats : Size
 			location : Location
-			party references Party?
 		}
 	}
 
@@ -34,6 +45,7 @@ information model ReservationsDM {
 
 		query all_Waiting_Parties() : Party* 
 		returns Party.all.select(p|p.state = Party.WAITING)
+		NOTE Q1 { «all_Waiting_Parties» }
 
 		query is_Party_Waiting(available_Seats : Size) : Boolean 
 		returns Party.all.exists(p | p.state = Party.WAITING AND p.size ≤ available_Seats)
@@ -41,21 +53,30 @@ information model ReservationsDM {
 		main autonomous entity Party {
 			states { ARRIVED, WAITING, SEATED, LEFT }
 			events { WAIT, SIT, LEAVE }
-			name : Name
+			name : Name 
 			size : Size
-			arrival_Time : Timepoint
+			arrival_Time : Timepoint 	
+			NOTE F1 { «arrival_Time» red} // COLOR NOT WORKING
+			NOTE F2 { «arrival_Time 2» }
 			max_Wait_Time : Duration
 			time_waited() : Duration returns  now() - arrival_Time
+			NOTE Q2{ «time_waited» }
 			waited_more_than(d : Duration) : Boolean returns time_waited > d
 			tab contains Tab?
 		}
 	}
 	
-	component Reservations {
+	component Reservations 
+		NOTE T2 { «Reservations» }
+		{
 		
-		main entity Reservation {
-			party references Party
+		main entity Reservation 
+		NOTE T2 { «Reservation» }
+		{
+			party references Party	 	
+			NOTE F3 { «party» }
 			preference : Preference?
+			NOTE F4 { «preference» }
 			table references Table?
 		}
 		

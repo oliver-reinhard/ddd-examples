@@ -42,7 +42,7 @@ information model DmxTestTypes {
 
 	component C1 {
 
-		root entity RT1 {
+		main entity RT1 {
 			id : ID
 			a : Natural
 		}
@@ -56,7 +56,7 @@ information model DmxTestTypes {
 
 		query allRT2() : RT2 (0..*)
 
-		root entity RT2 {
+		main entity RT2 {
 			id : ID
 			a : Natural
 			r1 references RT1
@@ -65,7 +65,7 @@ information model DmxTestTypes {
 
 	component C3 {
 
-		root entity RT3 extends RT2 {
+		main entity RT3 extends RT2 {
 			states {S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11}
 			events {E1, E2, E3, E4, E5, E6} 
 		}

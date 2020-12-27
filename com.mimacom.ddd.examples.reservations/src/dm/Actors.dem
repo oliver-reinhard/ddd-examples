@@ -3,6 +3,8 @@ domain dm.Restaurant
 actor model RestaurantActors {
 
 	human actor as Waiter
+	NOTE n1 { «Waiter Note» orange}
+	
 	human actor as Leader_of_Party
 
 }

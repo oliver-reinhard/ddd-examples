@@ -2,7 +2,19 @@ domain dm.res
 
 information view TablesReadView {
 	
-	grab aggregate dm.Restaurant.Tables read only {
+	detail T {
+		pref : Boolean
+	}
+	
+	grab aggregate dm.Restaurant.Tables read only { 
 		ditch query estimated_Wait_Time
+		add query bla (x:Boolean) : T
+		
+		grab root entity dm.Restaurant.Table {
+//				ditch details
+		}
+		
+		grab detail dm.Restaurant.Tables.TableDetails {
+		}
 	}
 }

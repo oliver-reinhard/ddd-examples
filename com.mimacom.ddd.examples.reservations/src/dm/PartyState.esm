@@ -6,13 +6,20 @@ state model PartyStateModel for dm.Restaurant.Party {
 	direction down
 	
 	initial state ARRIVED 
+	NOTE n1 { «Arrived» white}
+	NOTE n2 { «Arrived 2» } 
 	state WAITING
 	state SEATED
 	final state LEFT
 	
 	transition from ARRIVED to WAITING as WAIT
+	NOTE n3 { «++Wait Note wwwwwwww++ 
+		- Line 44
+		- 3»
+	}
 	
 	transition from ARRIVED to SEATED as SIT
+	NOTE n4 { «Sit Note» }
 	
 	transition from ARRIVED to LEFT as LEAVE
 	when max_Wait_Time > Tables.estimated_Wait_Time(size)

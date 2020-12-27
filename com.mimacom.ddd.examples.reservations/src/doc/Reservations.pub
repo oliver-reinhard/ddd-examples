@@ -4,7 +4,7 @@ import dm.Restaurant.Party
 Component (reservations) "A Case Study of a formal Domain Model for Restaurant Reservations"
 class:	Module
 
-generate html latex
+generate html// latex
 
 symbol: DOC_AUTHOR  = «Oliver Reinhard»
 symbol: DOC_DATE = «2020-02-18» 
@@ -15,7 +15,7 @@ Abstract {
 	P «The analysis reveals two main entities, two roles and two domain events and establishes their properties and relationships in a precise and consistent manner.»
 }
 //
-//TableOfContents { }  
+//TableOfContents { }
 //ListOfTables { } 
   
 Body {
@@ -30,7 +30,7 @@ Body {
 		
 		Figure «Party Life Cycle» {
 			widthPercent: 60
-			root: dm.Restaurant.PartyStateModel type: esm.entityStateDiagram  
+			root: dm.Restaurant.PartyStateModel type: esm.entityStateDiagram
 		}
 		
 		Subsection «Table»
@@ -43,7 +43,7 @@ Body {
 			widthPercent: 60 
 			root: dm.Restaurant.Party_arrived type: dem.eventUseCase
 		}
-		
+	
 //		CodeListing «Party arrived» 
 //			include: dm.Restaurant.PartyStateModel 
 		 
@@ -74,8 +74,7 @@ Body {
 		}
 		
 		P «No title here!»
-		
-		
+	
 		CodeListing «More included Code» { 
 			include: dm.Restaurant.Party_arrived.Party_at_Table
 		}

@@ -10,6 +10,8 @@ import sm.res.ReservationsBase.*
 //import sm.res.ReservationsBase.Timepoint
 
 core information model ReservationsCore {
+	
+	grab enumeration dm.Restaurant.Location
 
 	grab aggregate dm.Restaurant.Tables {
 		grab query estimated_Wait_Time(grab seats)
@@ -17,8 +19,11 @@ core information model ReservationsCore {
 		add query r(): Natural
 	
 		grab root entity dm.Restaurant.Table {
-				grab seats as seats2
-				add id : SID
+				add id : SID 
+		}  
+		
+		grab detail dm.Restaurant.Tables.TableDetails {
+				morph seats to seats2 : Size
 		}
 	}
 	

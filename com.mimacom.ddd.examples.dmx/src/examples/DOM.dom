@@ -1,13 +1,13 @@
+domain dom
+
 import Dmx.TestTypes.*
 import Dmx.TestTypes.C1.*
-
-domain dom
 
 snapshot S1 {
 
 	a = detail A {
 		a0 = "a"
-//		a2 = 1
+		a2 = 1
 		a3 = E1.L1
 		a4 = {1, 2, 3}
 		a5 = "2019-10-18"

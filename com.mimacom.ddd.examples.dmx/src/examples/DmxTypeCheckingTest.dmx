@@ -1,6 +1,7 @@
 namespace Dmx.Test
 
 import Dmx.TestTypes.*
+import Dmx.TestTypes.C3.RT3State
  
 test T21 context a : Natural { a }
 test T21 context a : Natural := 1 { a = 1 }
@@ -100,5 +101,5 @@ test T84 { A.all.min(a2) }
 test T84 { 22 > A.all.select(a1>0).min(a2) }
 test T85 { "A String".length() } 
 //test T86 context a : A { a.state}  // ERROR: Detail type must not access 'state'  
-test T87 context r : RT3 { r.state = RT3.S1 }  
+test T87 context r : RT3 { r.state = RT3State.S1 } 
 //     

@@ -3,6 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Dmx
 Bundle-SymbolicName: com.mimacom.ddd.examples.dmx
 Bundle-Version: 1.0.0.qualifier
-Export-Package: examples
 Require-Bundle: com.mimacom.ddd.system
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: com.mimacom.ddd.examples.dmx
+Export-Package: examples

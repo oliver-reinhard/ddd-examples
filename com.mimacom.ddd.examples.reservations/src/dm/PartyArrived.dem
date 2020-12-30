@@ -1,5 +1,8 @@
 domain dm.Restaurant 
 
+import dm.Restaurant.Tables.TableState
+import dm.Restaurant.Parties.PartyState
+
 event Party_arrived 
 «A group of people (a.k.a. [Party]) have entered the restaurant and request a [Table] for a [[Party#size|number]] of persons.»
 NOTE n0 { «Event Note» orange}
@@ -22,8 +25,8 @@ NOTE n0 { «Event Note» orange}
 
 	preconditions
 		Party_just_arrived:
-			«[p] in state [Party.ARRIVED] and arrived just now»
-			p.state != Party.ARRIVED AND p.arrival_Time = now()
+			«[p] in state [PartyState.ARRIVED] and arrived just now»
+			p.state != PartyState.ARRIVED AND p.arrival_Time = now()
 
 		Party_not_at_Table:
 			«[p] ist not at a [Table] yet»
@@ -36,11 +39,11 @@ NOTE n0 { «Event Note» orange}
 
 			Party_seated:
 				«[p] is seated»
-				p.state = Party.SEATED
+				p.state = PartyState.SEATED
 
 			Party_assigned_to_Table:
 				«There was a matching [Table] at which [p] now sits and which is now marked as used»
-				Table.all.exists(t | t.details.seats ≥ p.size AND t.party = p AND t.state = Table.USED)
+				Table.all.exists(t | t.details.seats ≥ p.size AND t.party = p AND t.state = TableState.USED)
 
 			Message_delivered:
 				«[p] was notified to have a seat»
@@ -52,7 +55,7 @@ NOTE n0 { «Event Note» orange}
 
 			Party_waiting: 
 				«[p] are waiting now»
-				p.state = Party.WAITING AND p.arrival_Time = now()
+				p.state = PartyState.WAITING AND p.arrival_Time = now()
 
 			Message_delivered:
 				«[p] was notified to wait at the bar»
@@ -64,7 +67,7 @@ NOTE n0 { «Event Note» orange}
 
 			Party_left:
 				«[p] has left»
-				p.state = Party.LEFT
+				p.state = PartyState.LEFT
 }
 
 

@@ -1,5 +1,8 @@
 domain dm.Restaurant
 
+import dm.Restaurant.Tables.TableState
+import dm.Restaurant.Parties.PartyState
+
 event Table_Cleaned
 NOTE n1 { «Event note» }
 {
@@ -20,19 +23,19 @@ NOTE n1 { «Event note» }
 		when Parties.is_Party_Waiting(cleaned.details.seats) :
 			
 			Party_At_Table: cleaned.party = Party.all.one(p1 | 
-						p1.state = Party.WAITING
+						p1.state = PartyState.WAITING
 					AND p1.size ≤ cleaned.details.seats 
-					AND p1.arrival_Time = Party.all.select(p | p.state = Party.WAITING).min(arrival_Time)
+					AND p1.arrival_Time = Party.all.select(p | p.state = PartyState.WAITING).min(arrival_Time)
 				)
-				AND cleaned.party.state = Party .SEATED
+				AND cleaned.party.state = PartyState.SEATED
 			
-			Table_Used: cleaned.state = Table.USED
+			Table_Used: cleaned.state = TableState.USED
 			
 			Message_Delivered: Please_Have_A_Seat.delivered
 		
 		case No_Party_Waiting
 		when NOT Parties.is_Party_Waiting(cleaned.details.seats):
 		
-			TableFree: cleaned.state = Table.FREE
+			TableFree: cleaned.state = TableState.FREE
 }
 

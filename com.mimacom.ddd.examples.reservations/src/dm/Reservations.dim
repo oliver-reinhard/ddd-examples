@@ -18,10 +18,10 @@ NOTE M1 { «ReservationsDM
 		WINDOW, CENTER, CORNER NOTE L1 {«CORNER»}, TERRACE
 	}
  
-	component Tables {
+	component Tables { 
 
 		query has_Free_Table(minSeats : Size) : Boolean
-		returns Table.all.exists(t | t.details.seats ≥ minSeats AND t.state = Table.FREE)
+		returns Table.all.exists(t | t.details.seats ≥ minSeats AND t.state = TableState.FREE)
 
 		query estimated_Wait_Time(seats : Size) : Duration 
 
@@ -30,9 +30,9 @@ NOTE M1 { «ReservationsDM
 		NOTE T2 { «all_Waiting_Parties» }
 	 {
 			states { FREE, USED }
-			events { ALLOCATED, CLEANED} 
+			events { ALLOCATED, CLEANED}
 			detail details : TableDetails
-			party references Party? 
+			party references Party?
 		}
 		
 		detail TableDetails {
@@ -44,13 +44,13 @@ NOTE M1 { «ReservationsDM
 	component Parties {
 
 		query all_Waiting_Parties() : Party* 
-		returns Party.all.select(p|p.state = Party.WAITING)
+		returns Party.all.select(p|p.state = PartyState.WAITING)
 		NOTE Q1 { «all_Waiting_Parties» }
 
 		query is_Party_Waiting(available_Seats : Size) : Boolean 
-		returns Party.all.exists(p | p.state = Party.WAITING AND p.size ≤ available_Seats)
+		returns Party.all.exists(p | p.state = PartyState.WAITING AND p.size ≤ available_Seats)
 
-		main autonomous entity Party {
+		main autonomous entity Party { 
 			states { ARRIVED, WAITING, SEATED, LEFT }
 			events { WAIT, SIT, LEAVE }
 			name : Name 
